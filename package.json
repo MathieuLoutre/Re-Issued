@@ -1,0 +1,55 @@
+{
+  "name": "re-issued",
+  "version": "1.0.0",
+  "main": "gulpfile.js",
+  "private": true,
+  "engines": {
+    "node": "8.4.x",
+    "npm": "5.4.x"
+  },
+  "scripts": {
+    "deploy": "gulp build && netlify deploy dist",
+    "build": "gulp build",
+    "start": "gulp",
+    "lint": "eslint src/**/*.js *.js --ignore-pattern node_modules/",
+    "lint-fix": "eslint src/**/*.js *.js --ignore-pattern node_modules/ --fix",
+    "precommit": "npm run lint && npm run build",
+    "install": "npm run build"
+  },
+  "author": "Mathieu Triay",
+  "license": "MIT",
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "gsap": "^1.20.4",
+    "howler": "^2.0.9",
+    "iphone-inline-video": "^2.2.2",
+    "jquery": "^3.3.1",
+    "rupture": "^0.7.1"
+  },
+  "devDependencies": {
+    "autoprefixer-stylus": "^0.14.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.0.1",
+    "babel-preset-env": "^1.6.1",
+    "babelify": "^8.0.0",
+    "browser-sync": "^2.18.8",
+    "del": "^3.0.0",
+    "eslint": "^4.11.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "gulp": "^3.9.1",
+    "gulp-bro": "^1.0.2",
+    "gulp-clean-css": "^3.9.2",
+    "gulp-htmlmin": "^4.0.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-stylus": "^2.6.0",
+    "gulp-template": "^4.0.0",
+    "husky": "^0.14.3",
+    "merge-stream": "^1.0.1",
+    "netlify-cli": "^1.2.2",
+    "uglifyify": "^4.0.5"
+  }
+}

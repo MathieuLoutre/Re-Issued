@@ -1,0 +1,36 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "globals": {
+    "document": true,
+    "window": true,
+    "process": true,
+    "fetch": false,
+    "YT": true,
+    "SC": true,
+    "gtag": true
+  },
+  "extends": [
+    "standard", 
+    "plugin:import/warnings"
+  ],
+  "rules": {
+  	"indent": ["error", 4],
+    "require-await": 2,
+  	"brace-style": ["error", "stroustrup"],
+  	"arrow-parens": ["error", "always"],
+  	"no-control-regex": 0,
+    "no-useless-escape": 0,
+  	"array-bracket-spacing": ["error", "never"],
+  	"object-curly-spacing": ["error", "always"],
+  	"space-before-function-paren": ["error", {
+        "anonymous": "always",
+        "named": "always",
+        "asyncArrow": "always"
+    }]
+  }
+}

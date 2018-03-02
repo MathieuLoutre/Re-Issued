@@ -1,0 +1,254 @@
+@import 'rupture'
+
+@import 'reset'
+@import 'typography'
+@import 'colors'
+
+.IIV::-webkit-media-controls-play-button,
+.IIV::-webkit-media-controls-start-playback-button
+	opacity: 0
+	pointer-events: none
+	width: 5px
+	
+@keyframes marquee-left
+	0%
+		transform: translateX(25%)
+	100%
+		transform: translateX(-25%)
+	
+@keyframes marquee-right
+	0%
+		transform: translateX(-25%)
+	100%
+		transform: translateX(25%)
+		
+@keyframes marquee
+	0%
+		transform: translateX(0)
+	100%
+		transform: translateX(-100%)
+
+body, html
+	width: 100%
+	background: black
+	font-weight: 300
+	color: white
+	font-size: 18px
+	font-family: BodyFace
+	line-height: 1.35
+
+section
+	width: 100%
+	height: 100vh
+	position: relative
+
+.re, .issued
+	opacity: 0
+
+.loading-bar
+	display: inline-block
+	height: 0.15em
+	width: 1em
+	overflow: hidden
+	position: relative
+	margin: 0 0.1em 0.2em 0.2em;
+	
+	.progress
+		width: 0
+		background: white
+		height: 100%
+		position: absolute
+		left: 0
+		top: 0
+
+#intro
+	background: black
+	
+	h1
+		font-size: 4rem
+		font-family: UniversBlackItalic
+		position: absolute
+		top: 2rem
+		left: 2rem
+		z-index: 100
+	
+	#intro-text
+		z-index: 100
+		position: absolute
+		bottom: 2rem
+		left: 2rem
+		width: 17rem
+		font-size: 1.2rem
+	
+	#intro-video
+		height: 100%
+		width: 100%
+		position: absolute
+		top: 50%
+		left: 50%
+		transform: translate(-50%, -50%)
+		display: none
+	
+	#progress-wrapper
+		position: absolute
+		z-index: 100
+		bottom: 2rem
+		right: 2rem
+		display: flex
+		align-items: center
+		flex-direction: column
+		
+		#progress-bar
+			height: 15rem
+			width: 15rem
+			border: 4px solid white
+			border-radius: 50%
+			position: relative
+			display: flex
+			justify-content: center
+			align-items: center
+			
+			img
+				width: 90%
+				z-index: 10
+			
+			#progress-indicator
+				position: absolute
+				left: 0
+				top: 0
+				width: 100%
+				height: 100%
+				overflow: hidden
+				z-index: 1
+				border-radius: 50%
+				
+				#progress
+					position: absolute
+					left: 0
+					top: 0
+					width: 0%
+					height: 100%
+					background: black
+		
+		#progress-cta
+			margin-top: 1rem
+			font-size: 1.5rem
+			text-transform: uppercase
+
+.centred-image
+	position: absolute
+	top: 50%
+	left: 50%
+	transform: translate(-50%, -50%)
+
+#everybody-welcome
+	.centred-image
+		width: 25%
+
+	.bg-type
+		display: flex
+		flex-direction: column
+		position: absolute
+		width: 100%
+		height: 100%
+		left: 0
+		top: 0
+
+		.type-band		
+			height: 25%
+			margin: 0.5rem 0
+			overflow: hidden
+			position: relative
+			white-space: nowrap
+
+			.type
+				height: 100%
+				background: url('/assets/images/everybody-welcome.svg')
+				background-repeat: repeat-x
+				background-size: auto 100%
+				width: 500%
+				left: -250%
+				position: absolute
+				animation: marquee-left 30s linear infinite alternate
+				
+			&:nth-child(odd)
+				.type
+					animation: marquee-right 30s linear infinite alternate
+
+			&:nth-child(1)
+				.type
+					background-position: 20% 0
+				
+			&:nth-child(2)
+				.type
+					background-position: 50% 0
+			
+			&:nth-child(3)
+				.type
+					background-position: 10% 0
+					
+			&:nth-child(4)
+				.type
+					background-position: 30% 0
+
+#no-caps
+	background: white
+	
+	.centred-image
+		height: 75%
+		top: 44%
+	
+	.strike
+		height: 2vw
+		width: 50%
+		position: absolute
+		left: 50%
+		top: 61%
+		transform: translateX(-50%)
+		background: black
+	
+	.ticker
+		background: black
+		color: white
+		overflow: hidden
+		position: absolute
+		bottom: 0
+		left: 0
+		width: 100%
+
+		.ticker-text
+			padding-left: 100%
+			width: auto
+			animation: marquee 30s linear infinite
+			white-space: nowrap
+			display: inline-block
+			font-family: Druk
+			font-size: 10vh
+			text-transform: uppercase
+
+#no-trainers
+	background: white
+	
+	.centred-image
+		height: 75%
+	
+	.strike
+		height: 2vw
+		width: 50%
+		position: absolute
+		left: 50%
+		top: 67%
+		transform: translateX(-50%)
+		background: black
+		
+#shop-now
+	font-family: UniversBlackItalic
+	display: flex
+	align-items: center
+	
+	.cta
+		font-size: 10vw
+		text-align: center
+		width: 100%
+		text-transform: uppercase
+		
