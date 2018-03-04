@@ -1,8 +1,74 @@
 import $ from 'jquery'
-import { TweenMax, TimelineMax } from 'gsap'
+import { TweenMax, TimelineMax, Linear } from 'gsap'
 import { Howl } from 'howler'
 import enableInlineVideo from 'iphone-inline-video'
+import { Queue, Section } from './direct-manipulation'
 require('babel-polyfill')
+
+const animationQueue = new Queue([
+    new Section({
+        tween: TweenMax.to('.logo-wrapper', 1, { top: '2rem' }),
+        trigger: 0,
+        length: 0.5
+    }),
+    new Section({
+        tween: TweenMax.to('.logo-wrapper svg', 1, { width: '20%' }),
+        trigger: 0,
+        length: 0.5
+    }),
+    new Section({
+        tween: TweenMax.from('#no-caps .strike', 1, { width: '0%' }),
+        trigger: 2.8,
+        length: 0.6
+    }),
+    new Section({
+        tween: TweenMax.set('#no-caps', { position: 'fixed' }),
+        trigger: 3
+    }),
+    new Section({
+        tween: new TimelineMax({ paused: true })
+            .to('#no-caps-wrap .image-stack.one', 0.5, { y: '0%' })
+            .to('#no-caps-wrap .image-stack.two', 0.5, { y: '0%' })
+            .to('#no-caps-wrap .image-stack.three', 0.5, { y: '0%' })
+            .to('#no-caps-wrap .image-stack.four', 0.5, { y: '0%' })
+            .to('#no-caps-wrap .image-stack.five', 0.5, { y: '0%' })
+            .to('#no-caps-wrap .image-stack.six', 0.5, { y: '0%' })
+            .to('#no-caps, #no-caps-wrap .image-stack', 1, { y: '-100%', ease: Linear.easeNone }),
+        trigger: 3,
+        length: 4
+    }),
+    new Section({
+        tween: TweenMax.from('#no-trainers .strike', 1, { width: '0%' }),
+        trigger: 6.8,
+        length: 0.6
+    }),
+    new Section({
+        tween: TweenMax.set('#no-trainers', { position: 'fixed' }),
+        trigger: 7
+    }),
+    new Section({
+        tween: new TimelineMax({ paused: true })
+            .to('#no-trainers-wrap .image-stack.one', 0.5, { y: '0%' })
+            .to('#no-trainers-wrap .image-stack.two', 0.5, { y: '0%' })
+            .to('#no-trainers-wrap .image-stack.three', 0.5, { y: '0%' })
+            .to('#no-trainers-wrap .image-stack.four', 0.5, { y: '0%' })
+            .to('#no-trainers-wrap .image-stack.five', 0.5, { y: '0%' })
+            .to('#no-trainers-wrap .image-stack.six', 0.5, { y: '0%' })
+            .to('#no-trainers, #no-trainers-wrap .image-stack', 1, { y: '-100%', ease: Linear.easeNone }),
+        trigger: 7,
+        length: 4
+    })
+])
+
+const textNodes = $('#intro-text').text().trim().split('').map((c) => c.trim() === '' ? `</div><div class="space">${c}</div><div>` : `<div>${c}</div>`)
+$('#intro-text').html(`<div>${textNodes.join('')}</div>`)
+TweenMax.set('#intro-text', { opacity: 1 })
+
+const loadingTimeline = new TimelineMax()
+loadingTimeline.staggerTo('#mark path', 0.4, { fillOpacity: 1 }, 0.25)
+loadingTimeline.to('.menu-top', 1, { opacity: 1 }, 'reveal')
+loadingTimeline.to('.menu-bottom', 1, { opacity: 1 }, 'reveal')
+loadingTimeline.staggerTo('#intro-text div', 0.1, { opacity: 1 }, 0.05, 'reveal')
 
 const mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
 
@@ -17,11 +83,6 @@ const video = $video.get(0)
 enableInlineVideo(video)
 
 let loaded = false
-
-const loadingTimeline = new TimelineMax()
-loadingTimeline.to('.re', 0.5, { opacity: 1 })
-loadingTimeline.to('.loading-bar .progress', 2, { width: '100%' })
-loadingTimeline.to('.issued', 0.5, { opacity: 1, repeatDelay: 0.5 })
 
 const showVideo = () => {
     if (!loaded) {

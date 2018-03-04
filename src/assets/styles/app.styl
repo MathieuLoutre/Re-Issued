@@ -30,7 +30,7 @@
 
 body, html
 	width: 100%
-	background: black
+	background: lighten(black, 20%)
 	font-weight: 300
 	color: white
 	font-size: 18px
@@ -42,44 +42,98 @@ section
 	height: 100vh
 	position: relative
 
-.re, .issued
+.menu-top
+	position: fixed
+	top: 2rem
+	left: 10%
+	display: flex
+	justify-content: flex-end
+	align-items: center
+	width: 80%
+	z-index: 500
+	padding-top: 1rem
+	opacity: 0
+	
+	.logos
+		height: 10vh
+		display: flex
+		justify-content: center
+		align-items: flex-start
+		
+		img
+			height: 100%
+			
+.menu-bottom
+	position: fixed
+	bottom: 1rem
+	left: 10%
+	display: flex
+	justify-content: space-between
+	align-items: flex-end
+	width: 80%
+	z-index: 500
+	padding: 1rem
 	opacity: 0
 
-.loading-bar
-	display: inline-block
-	height: 0.15em
-	width: 1em
-	overflow: hidden
-	position: relative
-	margin: 0 0.1em 0.2em 0.2em;
-	
-	.progress
-		width: 0
-		background: white
+	a
+		text-decoration: none
+		color: white
+		font-size: 1rem
+		text-transform: uppercase
+		
+		&.scroll
+			display: flex
+			flex-direction: column
+			justify-content: center
+			align-items: center
+			
+			svg
+				padding-bottom: 0.5em
+
+.logo-wrapper
+	width: 80%
+	left: 10%
+	position: fixed
+	z-index: 500
+	top: 25%
+	padding-top: 1rem
+
+	svg
+		padding-top: 2.5vh
+		width: 100%
+		min-width: 8rem
+
+#loading
+	.title-wrapper
+		display: flex
+		justify-content: center
+		align-items: center
+		flex-direction: column
+		width: 100%
 		height: 100%
 		position: absolute
-		left: 0
 		top: 0
+		left: 0
+	
+		#intro-text
+			font-family: UniversBold
+			font-size: 1.25rem
+			width: 80%
+			max-width: 32rem
+			text-align: center
+			padding-top: 40vh
+			opacity: 0
+			
+			div
+				display: inline-block
+				opacity: 0
+				
+				&.space
+					width: 0.3em
 
 #intro
 	background: black
-	
-	h1
-		font-size: 4rem
-		font-family: UniversBlackItalic
-		position: absolute
-		top: 2rem
-		left: 2rem
-		z-index: 100
-	
-	#intro-text
-		z-index: 100
-		position: absolute
-		bottom: 2rem
-		left: 2rem
-		width: 17rem
-		font-size: 1.2rem
-	
+
 	#intro-video
 		height: 100%
 		width: 100%
@@ -92,9 +146,12 @@ section
 	#progress-wrapper
 		position: absolute
 		z-index: 100
-		bottom: 2rem
-		right: 2rem
+		top: 0
+		left: 0
+		width: 100%
+		height: 100%
 		display: flex
+		justify-content: center
 		align-items: center
 		flex-direction: column
 		
@@ -141,78 +198,206 @@ section
 	left: 50%
 	transform: translate(-50%, -50%)
 
-#everybody-welcome
-	.centred-image
-		width: 25%
+.bg-type
+	display: flex
+	flex-direction: column
+	position: absolute
+	width: 100%
+	left: 0
 
-	.bg-type
-		display: flex
-		flex-direction: column
-		position: absolute
-		width: 100%
-		height: 100%
-		left: 0
-		top: 0
+	.type-band		
+		margin: 0.5rem 0
+		overflow: hidden
+		position: relative
+		white-space: nowrap
 
-		.type-band		
-			height: 25%
-			margin: 0.5rem 0
-			overflow: hidden
-			position: relative
-			white-space: nowrap
-
-			.type
-				height: 100%
-				background: url('/assets/images/everybody-welcome.svg')
-				background-repeat: repeat-x
-				background-size: auto 100%
-				width: 500%
-				left: -250%
-				position: absolute
-				animation: marquee-left 30s linear infinite alternate
-				
-			&:nth-child(odd)
-				.type
-					animation: marquee-right 30s linear infinite alternate
-
-			&:nth-child(1)
-				.type
-					background-position: 20% 0
-				
-			&:nth-child(2)
-				.type
-					background-position: 50% 0
+		.type
+			height: 100%
+			background-repeat: repeat-x
+			background-size: auto 100%
+			width: 500%
+			left: -250%
+			position: absolute
+			animation: marquee-left 30s linear infinite alternate
 			
-			&:nth-child(3)
-				.type
-					background-position: 10% 0
-					
-			&:nth-child(4)
-				.type
-					background-position: 30% 0
+		&:nth-child(odd)
+			.type
+				animation: marquee-right 30s linear infinite alternate
 
-#no-caps
-	background: white
+		&:nth-child(1)
+			.type
+				background-position: 20% 0
+			
+		&:nth-child(2)
+			.type
+				background-position: 50% 0
+		
+		&:nth-child(3)
+			.type
+				background-position: 10% 0
+				
+		&:nth-child(4)
+			.type
+				background-position: 30% 0
+
+
+#everybody-welcome
+	.bg-type
+		height: 70%
+		top: 20%
+		
+		.type-band
+			height: 25%
 	
-	.centred-image
-		height: 75%
-		top: 44%
+			.type
+				background: url('/assets/images/everybody-welcome.svg')
+	
+#no-caps-wrap
+	background: grey
+
+	svg
+		width: 50%
+
+		path
+			fill: black
+	
+	.one
+		img
+			left: 25%
+			top: 8%
+			width: 17%
+	
+	.two
+		img
+			left: 2%
+			top: 0
+			width: 20%
+			
+	.three
+		img
+			left: 1%
+			top: 40%
+			width: 20%
+			
+	.four
+		img
+			right: 5%
+			top: 10%
+			width: 22%
+	
+	.five
+		img
+			right: 20%
+			top: 25%
+			width: 18%
+	
+	.six
+		img
+			left: 40%
+			top: 50%
+			width: 20%
 	
 	.strike
-		height: 2vw
-		width: 50%
-		position: absolute
-		left: 50%
-		top: 61%
-		transform: translateX(-50%)
 		background: black
+
+#no-trainers-wrap		
+	svg
+		width: 60%
+		
+		path
+			fill: white
+			
+	.one
+		img
+			left: 25%
+			top: 8%
+			width: 17%
 	
+	.two
+		img
+			left: 2%
+			top: 0
+			width: 20%
+			
+	.three
+		img
+			left: 1%
+			top: 40%
+			width: 20%
+			
+	.four
+		img
+			right: 5%
+			top: 10%
+			width: 22%
+	
+	.five
+		img
+			right: 20%
+			top: 25%
+			width: 18%
+	
+	.six
+		img
+			left: 40%
+			top: 50%
+			width: 20%
+	
+	.strike
+		background: white
+
+.section-wrap
+	position: relative
+	height: 400vh
+	overflow: hidden
+	
+	.svg-wrap
+		z-index: 100
+		top: 0
+		left: 0
+		display: flex
+		
+		svg
+			max-width: 100%
+			margin: auto
+			
+		.strike
+			height: 2vw
+			position: absolute
+			width: 60%
+			left: 20%
+			top: 50%
+
+	.image-stack
+		z-index: 90
+		width: 100%
+		height: 100vh
+		transform: translateY(100%)
+		position: fixed
+		top: 0
+		left: 0
+		overflow: hidden
+		
+		img
+			width: 30%
+			position: absolute
+		
+#shop-now
+	.bg-type
+		height: 50%
+		top: 20%
+		
+		.type-band
+			height: 50%
+	
+			.type
+				background: url('/assets/images/shop-now-combo.svg')
+
 	.ticker
-		background: black
 		color: white
 		overflow: hidden
 		position: absolute
-		bottom: 0
+		bottom: 10%
 		left: 0
 		width: 100%
 
@@ -225,30 +410,4 @@ section
 			font-family: Druk
 			font-size: 10vh
 			text-transform: uppercase
-
-#no-trainers
-	background: white
-	
-	.centred-image
-		height: 75%
-	
-	.strike
-		height: 2vw
-		width: 50%
-		position: absolute
-		left: 50%
-		top: 67%
-		transform: translateX(-50%)
-		background: black
-		
-#shop-now
-	font-family: UniversBlackItalic
-	display: flex
-	align-items: center
-	
-	.cta
-		font-size: 10vw
-		text-align: center
-		width: 100%
-		text-transform: uppercase
 		
