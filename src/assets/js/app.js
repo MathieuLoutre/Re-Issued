@@ -103,23 +103,23 @@ const steps = [
     {
         name: 'intro',
         start: 0.05,
-        end: 7.5
+        end: 8.0
     },
     {
         name: 'backwards-speed',
-        start: 7.55,
-        end: 14.3,
+        start: 8,
+        end: 15.2,
         reverse: true
     },
     {
         name: 'speed',
-        start: 7.55,
-        end: 14.3
+        start: 15.2,
+        end: 16.21
     },
     {
         name: 'sequence',
-        start: 14.5,
-        end: 53.5
+        start: 16.21,
+        end: 60
     }
 ]
 
@@ -144,7 +144,7 @@ let down = false
 let reached = false
 
 const bgStart = new Howl({
-    src: ['./assets/audio/bg-start.mp3'],
+    src: ['./assets/images/loop.mp3'],
     loop: true,
     autoplay: true,
     volume: baseVolume,
@@ -152,7 +152,7 @@ const bgStart = new Howl({
 })
 
 const bgEnd = new Howl({
-    src: ['./assets/audio/bg-end.mp3'],
+    src: ['./assets/images/main.mp3'],
     loop: true,
     volume: 0
 })
