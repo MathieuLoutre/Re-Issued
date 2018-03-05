@@ -108,12 +108,12 @@ const steps = [
     {
         name: 'backwards-speed',
         start: 8,
-        end: 15.2,
+        end: 9.05,
         reverse: true
     },
     {
         name: 'speed',
-        start: 15.2,
+        start: 9.05,
         end: 16.21
     },
     {
