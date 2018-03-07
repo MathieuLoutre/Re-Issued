@@ -8,12 +8,12 @@ require('babel-polyfill')
 // eslint-disable-next-line no-unused-vars
 const animationQueue = new Queue([
     new Section({
-        tween: TweenMax.to('.logo-wrapper', 1, { top: '2rem' }),
+        tween: TweenMax.to('.logo-wrapper', 1, { top: '3rem' }),
         trigger: 0,
         length: 0.5
     }),
     new Section({
-        tween: TweenMax.to('.logo-wrapper svg', 1, { width: '20%' }),
+        tween: TweenMax.to('.logo-wrapper svg', 1, { width: '30%' }),
         trigger: 0,
         length: 0.5
     }),
