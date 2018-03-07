@@ -30,11 +30,11 @@
 
 body, html
 	width: 100%
-	background: lighten(black, 20%)
+	background: darkgrey
 	font-weight: 300
 	color: white
 	font-size: 18px
-	font-family: BodyFace
+	font-family: UniversBold
 	line-height: 1.35
 
 section
@@ -62,6 +62,9 @@ section
 		
 		img
 			height: 100%
+
+			& + img
+				margin-left: 30%
 			
 .menu-bottom
 	position: fixed
@@ -80,6 +83,11 @@ section
 		color: white
 		font-size: 1rem
 		text-transform: uppercase
+		letter-spacing: 0.1em
+
+		svg
+			display: inline-block
+			width: 1.2rem
 		
 		&.scroll
 			display: flex
@@ -88,11 +96,13 @@ section
 			align-items: center
 			
 			svg
+				display: block
 				padding-bottom: 0.5em
+				width: 0.8rem
 
 .logo-wrapper
-	width: 80%
-	left: 10%
+	width: 85%
+	left: 7.5%
 	position: fixed
 	z-index: 500
 	top: 25%
@@ -116,10 +126,10 @@ section
 		left: 0
 	
 		#intro-text
-			font-family: UniversBold
+			font-family: UniversLight
 			font-size: 1.25rem
 			width: 80%
-			max-width: 32rem
+			max-width: 40rem
 			text-align: center
 			padding-top: 40vh
 			opacity: 0
@@ -206,7 +216,7 @@ section
 	left: 0
 
 	.type-band		
-		margin: 0.5rem 0
+		margin: 0.25rem 0
 		overflow: hidden
 		position: relative
 		white-space: nowrap
@@ -254,6 +264,9 @@ section
 	
 #no-caps-wrap
 	background: grey
+
+	.strike
+		top: 55%
 
 	svg
 		width: 50%
@@ -366,10 +379,10 @@ section
 			position: absolute
 			width: 60%
 			left: 20%
-			top: 50%
+			top: 53%
 
 	.image-stack
-		z-index: 90
+		z-index: 120
 		width: 100%
 		height: 100vh
 		transform: translateY(100%)

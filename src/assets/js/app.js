@@ -5,6 +5,7 @@ import enableInlineVideo from 'iphone-inline-video'
 import { Queue, Section } from './direct-manipulation'
 require('babel-polyfill')
 
+// eslint-disable-next-line no-unused-vars
 const animationQueue = new Queue([
     new Section({
         tween: TweenMax.to('.logo-wrapper', 1, { top: '2rem' }),
@@ -68,7 +69,7 @@ const loadingTimeline = new TimelineMax()
 loadingTimeline.staggerTo('#mark path', 0.4, { fillOpacity: 1 }, 0.25)
 loadingTimeline.to('.menu-top', 1, { opacity: 1 }, 'reveal')
 loadingTimeline.to('.menu-bottom', 1, { opacity: 1 }, 'reveal')
-loadingTimeline.staggerTo('#intro-text div', 0.1, { opacity: 1 }, 0.05, 'reveal')
+loadingTimeline.staggerTo('#intro-text div', 0.07, { opacity: 1 }, 0.025, 'reveal')
 
 const mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
 
