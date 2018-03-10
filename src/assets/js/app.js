@@ -3,94 +3,106 @@ import { TweenMax, TimelineMax, Linear } from 'gsap'
 import { Howl } from 'howler'
 import enableInlineVideo from 'iphone-inline-video'
 import { Queue, Section } from './direct-manipulation'
+import debounce from 'lodash/debounce'
+import throttle from 'lodash/throttle'
 require('babel-polyfill')
+
+const $window = $(window)
+let wHeight = $window.height()
+
+const switchVideo = () => {
+    wHeight = $window.height()
+
+    if (wHeight > $window.width()) {
+        $video.html('<source src="/assets/images/mobile.mp4">')
+    }
+    else {
+        $video.html('<source src="/assets/images/desktop.mp4">')
+    }
+}
+
+const showVideo = () => {
+    if (!loaded) {
+        loadingTimeline.repeat(0)
+        loaded = true
+    }
+}
 
 // eslint-disable-next-line no-unused-vars
 const animationQueue = new Queue([
     new Section({
-        tween: TweenMax.to('.logo-wrapper', 1, { top: '3rem' }),
-        trigger: 0,
-        length: 0.5
-    }),
-    new Section({
-        tween: TweenMax.to('.logo-wrapper svg', 1, { width: '30%' }),
-        trigger: 0,
-        length: 0.5
-    }),
-    new Section({
         tween: TweenMax.from('#no-caps .strike', 1, { width: '0%' }),
-        trigger: 2.8,
+        trigger: 1.8,
         length: 0.6
     }),
     new Section({
         tween: TweenMax.set('#no-caps', { position: 'fixed' }),
-        trigger: 3
+        trigger: 2
     }),
     new Section({
-        tween: new TimelineMax({ paused: true })
-            .to('#no-caps-wrap .image-stack.one', 0.5, { y: '0%' })
-            .to('#no-caps-wrap .image-stack.two', 0.5, { y: '0%' })
-            .to('#no-caps-wrap .image-stack.three', 0.5, { y: '0%' })
-            .to('#no-caps-wrap .image-stack.four', 0.5, { y: '0%' })
-            .to('#no-caps-wrap .image-stack.five', 0.5, { y: '0%' })
-            .to('#no-caps-wrap .image-stack.six', 0.5, { y: '0%' })
-            .to('#no-caps, #no-caps-wrap .image-stack', 1, { y: '-100%', ease: Linear.easeNone }),
-        trigger: 3,
-        length: 4
+        tween: new TimelineMax({ paused: true, ease: Linear.easeNone })
+            .to('#no-caps-wrap .image-stack.one', 1, { y: '0%' })
+            .to('#no-caps-wrap .image-stack.two', 1, { y: '0%' })
+            .to('#no-caps-wrap .image-stack.three', 1, { y: '0%' })
+            .to('#no-caps-wrap .image-stack.four', 1, { y: '0%' })
+            .to('#no-caps-wrap .image-stack.five', 1, { y: '0%' })
+            .to('#no-caps-wrap .image-stack.six', 1, { y: '0%' })
+            .to('#no-caps-wrap .image-stack.seven', 1, { y: '0%' })
+            .to('#no-caps-wrap .image-stack.eight', 1, { y: '0%' })
+            .to('#no-caps, #no-caps-wrap .image-stack', 1, { y: '-100%' }),
+        trigger: 2,
+        length: 9
     }),
     new Section({
         tween: TweenMax.from('#no-trainers .strike', 1, { width: '0%' }),
-        trigger: 6.8,
+        trigger: 10.8,
         length: 0.6
     }),
     new Section({
         tween: TweenMax.set('#no-trainers', { position: 'fixed' }),
-        trigger: 7
+        trigger: 11
     }),
     new Section({
-        tween: new TimelineMax({ paused: true })
-            .to('#no-trainers-wrap .image-stack.one', 0.5, { y: '0%' })
-            .to('#no-trainers-wrap .image-stack.two', 0.5, { y: '0%' })
-            .to('#no-trainers-wrap .image-stack.three', 0.5, { y: '0%' })
-            .to('#no-trainers-wrap .image-stack.four', 0.5, { y: '0%' })
-            .to('#no-trainers-wrap .image-stack.five', 0.5, { y: '0%' })
-            .to('#no-trainers-wrap .image-stack.six', 0.5, { y: '0%' })
+        tween: new TimelineMax({ paused: true, ease: Linear.easeNone })
+            .to('#no-trainers-wrap .image-stack.one', 1, { y: '0%' })
+            .to('#no-trainers-wrap .image-stack.two', 1, { y: '0%' })
+            .to('#no-trainers-wrap .image-stack.three', 1, { y: '0%' })
+            .to('#no-trainers-wrap .image-stack.four', 1, { y: '0%' })
+            .to('#no-trainers-wrap .image-stack.five', 1, { y: '0%' })
+            .to('#no-trainers-wrap .image-stack.six', 1, { y: '0%' })
+            .to('#no-trainers-wrap .image-stack.seven', 1, { y: '0%' })
+            .to('#no-trainers-wrap .image-stack.eight', 1, { y: '0%' })
+            .to('#no-trainers-wrap .image-stack.nine', 1, { y: '0%' })
             .to('#no-trainers, #no-trainers-wrap .image-stack', 1, { y: '-100%', ease: Linear.easeNone }),
-        trigger: 7,
-        length: 4
+        trigger: 11,
+        length: 10
     })
 ])
 
-const textNodes = $('#intro-text').text().trim().split('').map((c) => c.trim() === '' ? `</div><div class="space">${c}</div><div>` : `<div>${c}</div>`)
-$('#intro-text').html(`<div>${textNodes.join('')}</div>`)
-TweenMax.set('#intro-text', { opacity: 1 })
-
-const loadingTimeline = new TimelineMax()
+const loadingTimeline = new TimelineMax({ onComplete: () => {
+    loadedTimeline.play()
+} }).repeat(-1)
 loadingTimeline.staggerTo('#mark path', 0.4, { fillOpacity: 1 }, 0.25)
-loadingTimeline.to('.menu-top', 1, { opacity: 1 }, 'reveal')
-loadingTimeline.to('.menu-bottom', 1, { opacity: 1 }, 'reveal')
-loadingTimeline.staggerTo('#intro-text div', 0.07, { opacity: 1 }, 0.025, 'reveal')
 
-const mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+const loadedTimeline = new TimelineMax({ paused: true })
+loadedTimeline.add(() => $('body').removeClass('no-scroll'))
+loadedTimeline.to('#smoke-screen', 0.5, { y: '-100%' }, 'reduce')
+loadedTimeline.to('#mark', 0.5, { width: '30%' }, 'reduce')
+loadedTimeline.to('.logo-wrapper', 0.5, { top: '3rem' }, 'reduce')
+loadedTimeline.to('.menu-top', 2, { opacity: 1 }, 'reveal')
+loadedTimeline.to('.menu-bottom', 2, { opacity: 1 }, 'reveal')
 
-if (mobile) {
-    // if mobile change CTA to hold
-}
+// const mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
 
 const $video = $('#intro-video')
 const $progress = $('#progress')
+
+switchVideo()
 
 const video = $video.get(0)
 enableInlineVideo(video)
 
 let loaded = false
-
-const showVideo = () => {
-    if (!loaded) {
-        loaded = true
-        $video.fadeIn(250)
-    }
-}
 
 if (video.readyState >= 2) {
     showVideo()
@@ -104,33 +116,25 @@ const steps = [
     {
         name: 'intro',
         start: 0.05,
-        end: 8.0
+        end: 4.0
     },
     {
         name: 'backwards-speed',
-        start: 8,
-        end: 9.05,
+        start: 4.05,
+        end: 5.0,
         reverse: true
     },
     {
         name: 'speed',
-        start: 9.05,
-        end: 16.21
+        start: 5.05,
+        end: 9.21
     },
     {
         name: 'sequence',
-        start: 16.21,
+        start: 9.25,
         end: 60
     }
 ]
-
-const baseSpeed = 0.5
-const maxSpeed = 1.5
-const speedInterval = maxSpeed - baseSpeed
-
-const baseVolume = 0.25
-const maxVolume = 1
-const volumeInterval = maxVolume - baseVolume
 
 let progress = 0
 let elapsed = 0
@@ -144,31 +148,29 @@ let endTime = 0
 let down = false
 let reached = false
 
-const bgStart = new Howl({
+const introSound = new Howl({
     src: ['./assets/images/loop.mp3'],
     loop: true,
-    autoplay: true,
-    volume: baseVolume,
-    rate: baseSpeed
+    autoplay: true
 })
 
-const bgEnd = new Howl({
+const loadingSound = new Howl({
+    src: ['./assets/images/load.mp3'],
+    loop: true
+})
+
+const reverseSound = new Howl({
+    src: ['./assets/images/reverse.mp3']
+})
+
+const mainSound = new Howl({
     src: ['./assets/images/main.mp3'],
-    loop: true,
-    volume: 0
+    loop: true
 })
 
 setInterval(function () {
     if (steps[step].pass && video.currentTime >= steps[step].end) {
         step++
-
-        // if (steps[step].name === 'end-broadcast') {
-        //     $('#start-again, #logo-wrapper').removeClass('hide')
-        //     setTimeout(function () {
-        //         $('#logo-wrapper').addClass('high')
-        //         $('#ethos, #address').removeClass('hide')
-        //     }, 600)
-        // }
     }
     else {
         if (video.currentTime >= steps[step].end && !down && !steps[step].reverse) {
@@ -179,12 +181,9 @@ setInterval(function () {
 
 const _update = function (progress) {
     $progress.css('width', `${progress}%`)
-
-    bgStart.volume(baseVolume + (progress / 100) * volumeInterval)
-    bgStart.rate(baseSpeed + (progress / 100) * speedInterval)
 }
 
-const startLoop = function () {
+const videoStateManager = function () {
     if (down && !reached) {
         elapsed = Date.now() - startTime
         progress = (elapsed / maxTime) * 100
@@ -197,16 +196,15 @@ const startLoop = function () {
 
             video.currentTime = steps[step].start
 
-            // $('#progress-bar, #logo-wrapper').addClass('hide')
+            TweenMax.to('#progress-wrapper', 0.5, { opacity: 0 })
 
-            bgStart.fade(maxVolume, 0, 500)
-
-            bgEnd.seek(0)
-            bgEnd.play()
-            bgEnd.fade(0, 1, 500)
+            loadingSound.pause()
+            loadingSound.seek(0)
+            mainSound.seek(0)
+            mainSound.play()
         }
         else {
-            requestAnimationFrame(startLoop)
+            requestAnimationFrame(videoStateManager)
         }
     }
     else if (!reached) {
@@ -217,7 +215,7 @@ const startLoop = function () {
             _update(endProgress)
 
             if (endProgress > 0) {
-                requestAnimationFrame(startLoop)
+                requestAnimationFrame(videoStateManager)
             }
             else {
                 progress = 0
@@ -239,6 +237,10 @@ const startPress = function (ev) {
         ev.preventDefault()
     }
 
+    introSound.pause()
+    loadingSound.seek(0)
+    loadingSound.play()
+
     if (!reached && !down && loaded) {
         down = true
         step = 2
@@ -247,7 +249,7 @@ const startPress = function (ev) {
             video.currentTime = steps[step].start
 
             startTime = Date.now()
-            startLoop()
+            videoStateManager()
         }
         else {
             startTime = Date.now() - ((endProgress / 100) * maxTime)
@@ -268,6 +270,13 @@ const endPress = function (ev) {
     if (!reached) {
         step = 1
 
+        loadingSound.pause()
+        reverseSound.seek(0)
+        reverseSound.play()
+        introSound.seek(0)
+        introSound.fade(0, 1, 1000)
+        introSound.play()
+
         video.currentTime = steps[step].end - (steps[step].end - steps[step].start) * progress / 100
     }
 }
@@ -280,27 +289,6 @@ $('body').on('touchend', endPress)
 
 $('body').on('keydown', startPress)
 $('body').on('keyup', endPress)
-
-// $('#start-again').on('click', function () {
-//     step = 0
-
-//     $('#logo-wrapper').removeClass('high')
-//     $('#ethos, #start-again, #address').addClass('hide')
-//     $('#progress-bar').removeClass('hide')
-
-//     progress = 0
-//     endProgress = 0
-//     reached = false
-//     video.currentTime = 0
-//     video.play()
-
-//     $progress.css('width', '0')
-
-//     bgEnd.fade(1, 0, 500)
-//     bgStart.seek(0)
-//     bgStart.rate(baseSpeed)
-//     bgStart.fade(0, baseVolume)
-// })
 
 // $(document).on({
 //     'show': function () {
@@ -320,3 +308,14 @@ $('body').on('keyup', endPress)
 //         }
 //     }
 // })
+
+$window.on('resize', debounce(switchVideo, 100))
+
+$window.on('scroll', throttle((ev) => {
+    if ($window.scrollTop() > wHeight) {
+        video.pause()
+    }
+    else {
+        video.play()
+    }
+}, 50))
