@@ -1,7 +1,7 @@
 import $ from 'jquery'
 import { TweenMax, TimelineMax, Linear } from 'gsap'
 import { Howl, Howler } from 'howler'
-import enableInlineVideo from 'iphone-inline-video'
+// import enableInlineVideo from 'iphone-inline-video'
 import { Queue, Section } from './direct-manipulation'
 import debounce from 'lodash/debounce'
 import throttle from 'lodash/throttle'
@@ -121,7 +121,7 @@ const $progress = $('#progress')
 resizeHandler()
 
 const video = $video.get(0)
-enableInlineVideo(video)
+// enableInlineVideo(video)
 
 let loaded = false
 
@@ -195,6 +195,7 @@ setInterval(function () {
     else {
         if (video.currentTime >= steps[step].end && !down && !steps[step].reverse) {
             video.currentTime = steps[step].start
+            video.play()
         }
     }
 }, 30)
@@ -210,24 +211,25 @@ const videoStateManager = function () {
 
         _update(progress)
 
-        if (elapsed > 500 && !loadingSound.playing()) {
-            introSound.pause()
-            loadingSound.seek(0)
-            loadingSound.play()
-        }
+        // if (elapsed > 500 && !loadingSound.playing()) {
+        //     introSound.pause()
+        //     loadingSound.seek(0)
+        //     loadingSound.play()
+        // }
 
         if (progress >= 100) {
             reached = true
             step = 3
 
             video.currentTime = steps[step].start
+            video.play()
 
             TweenMax.to('#progress-wrapper', 0.5, { opacity: 0 })
 
-            loadingSound.pause()
-            loadingSound.seek(0)
-            mainSound.seek(0)
-            mainSound.play()
+            // loadingSound.pause()
+            // loadingSound.seek(0)
+            // mainSound.seek(0)
+            // mainSound.play()
         }
         else {
             requestAnimationFrame(videoStateManager)
@@ -250,6 +252,7 @@ const videoStateManager = function () {
                 _update(0)
 
                 video.currentTime = steps[step].start
+                video.play()
             }
         }
     }
@@ -269,6 +272,7 @@ const startPress = function (ev) {
 
         if (progress <= 0) {
             video.currentTime = steps[step].start
+            video.play()
 
             startTime = Date.now()
             videoStateManager()
@@ -277,6 +281,7 @@ const startPress = function (ev) {
             startTime = Date.now() - ((endProgress / 100) * maxTime)
 
             video.currentTime = steps[step].start + (steps[step].end - steps[step].start) * endProgress / 100
+            video.play()
         }
     }
 }
@@ -292,18 +297,19 @@ const endPress = function (ev) {
     if (!reached) {
         step = 1
 
-        loadingSound.pause()
+        // loadingSound.pause()
 
-        if (endTime - startTime > 500) {
-            reverseSound.seek(0)
-            reverseSound.play()
-        }
+        // if (endTime - startTime > 500) {
+        //     reverseSound.seek(0)
+        //     reverseSound.play()
+        // }
 
-        introSound.pause()
-        introSound.seek(0)
-        introSound.play()
+        // introSound.pause()
+        // introSound.seek(0)
+        // introSound.play()
 
         video.currentTime = steps[step].end - (steps[step].end - steps[step].start) * progress / 100
+        video.play()
     }
 }
 
