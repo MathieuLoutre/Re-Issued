@@ -7,7 +7,7 @@ import debounce from 'lodash/debounce'
 import throttle from 'lodash/throttle'
 require('babel-polyfill')
 
-window.$ = $
+Howler.mobileAutoEnable = false
 
 const $window = $(window)
 let wHeight = $('#intro').height()
@@ -211,6 +211,12 @@ const videoStateManager = function () {
 
         _update(progress)
 
+        if (elapsed > 500 && !loadingSound.playing()) {
+            introSound.pause()
+            loadingSound.seek(0)
+            loadingSound.play()
+        }
+
         if (progress >= 100) {
             reached = true
             step = 3
@@ -262,10 +268,6 @@ const startPress = function (ev) {
         down = true
         step = 2
 
-        introSound.pause()
-        loadingSound.seek(0)
-        loadingSound.play()
-
         if (progress <= 0) {
             video.currentTime = steps[step].start
 
@@ -292,10 +294,14 @@ const endPress = function (ev) {
         step = 1
 
         loadingSound.pause()
-        reverseSound.seek(0)
-        reverseSound.play()
+
+        if (endTime - startTime > 1000) {
+            reverseSound.seek(0)
+            reverseSound.play()
+        }
+
+        introSound.pause()
         introSound.seek(0)
-        introSound.fade(0, 1, 1000)
         introSound.play()
 
         video.currentTime = steps[step].end - (steps[step].end - steps[step].start) * progress / 100
