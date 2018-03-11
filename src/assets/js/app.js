@@ -102,7 +102,7 @@ const loadedTimeline = new TimelineMax({ paused: true })
 loadedTimeline.add(() => $('body').removeClass('no-scroll'))
 loadedTimeline.to('#smoke-screen', 0.5, { opacity: 0, display: 'none' }, 'reduce')
 loadedTimeline.to('#mark', 0.5, { width: '30%' }, 'reduce')
-loadedTimeline.to('.logo-wrapper', 0.5, { top: '3rem' }, 'reduce')
+loadedTimeline.to('.logo-wrapper', 0.5, { top: '7%' }, 'reduce')
 loadedTimeline.to('.menu-top', 2, { opacity: 1 }, 'reveal')
 loadedTimeline.to('.menu-bottom', 2, { opacity: 1 }, 'reveal')
 
@@ -251,13 +251,13 @@ const startPress = function (ev) {
         ev.preventDefault()
     }
 
-    introSound.pause()
-    loadingSound.seek(0)
-    loadingSound.play()
-
     if (!reached && !down && loaded) {
         down = true
         step = 2
+
+        introSound.pause()
+        loadingSound.seek(0)
+        loadingSound.play()
 
         if (progress <= 0) {
             video.currentTime = steps[step].start

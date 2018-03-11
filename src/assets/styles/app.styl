@@ -48,15 +48,18 @@ section
 
 .menu-top
 	position: fixed
-	top: 2rem
+	top: 5%
 	left: 10%
 	display: flex
 	justify-content: flex-end
 	align-items: center
 	width: 80%
 	z-index: 500
-	padding-top: 1rem
 	opacity: 0
+	
+	+below(700px)
+		width: 90%
+		left: 5%
 	
 	.logos
 		height: 10vh
@@ -66,9 +69,7 @@ section
 		
 		img
 			height: 100%
-
-			& + img
-				margin-left: 30%
+			padding-left: 10%
 			
 .menu-bottom
 	position: fixed
@@ -79,19 +80,25 @@ section
 	align-items: flex-end
 	width: 80%
 	z-index: 500
-	padding: 1rem
+	padding-bottom: 1rem
 	opacity: 0
+	
+	+below(700px)
+		width: 90%
+		left: 5%
+		padding-bottom: 0
+		font-size: 0.8rem
 
 	a, div
 		text-decoration: none
 		color: white
-		font-size: 1rem
 		text-transform: uppercase
 		letter-spacing: 0.1em
+		text-align: center
 
 		svg
 			display: inline-block
-			width: 1.2rem
+			width: 1.2em
 		
 		&.scroll
 			display: flex
@@ -119,6 +126,10 @@ section
 	position: fixed
 	z-index: 500
 	top: 40%
+	
+	+below(700px)
+		left: 5%
+		width: 90%
 
 	svg
 		width: 100%
@@ -276,6 +287,11 @@ section
 			left: 25%
 			top: 8%
 			width: 17%
+			
+			+below(700px)
+				top: 4%
+				left: 30%
+				width: 55%
 	
 	.two
 		img
@@ -283,23 +299,40 @@ section
 			top: 0
 			width: 20%
 			
+			+below(700px)
+				left: 0
+				width: 60%
+			
 	.three
 		img
 			left: 1%
 			top: 40%
 			width: 20%
 			
+			+below(700px)
+				left: 10%
+				width: 60%
+			
 	.four
 		img
 			right: 5%
 			top: 10%
 			width: 22%
+
+			+below(700px)
+				top: 3%
+				width: 52%
 	
 	.five
 		img
 			right: 20%
 			top: 25%
 			width: 18%
+			
+			+below(700px)
+				right: 0%
+				top: 55%
+				width: 48%
 	
 	.six
 		video
@@ -307,17 +340,32 @@ section
 			top: 50%
 			width: 20%
 			
+			+below(700px)
+				right: 0%
+				top: 50%
+				width: 60%
+			
 	.seven
 		video
 			width: 25%
 			top: 16%
 			left: 40%
 			
+			+below(700px)
+				right: 45%
+				top: 10%
+				width: 30%
+			
 	.eight
 		video
 			width: 25%
 			top: 40%
 			left: 25%
+			
+			+below(700px)
+				width: 45%
+				top: 30%
+				left: 5%
 	
 	.image-wrap
 		width: 50%
@@ -337,6 +385,11 @@ section
 			left: 25%
 			top: 8%
 			width: 17%
+			
+			+below(700px)
+				top: 4%
+				left: 30%
+				width: 55%
 	
 	.two
 		img
@@ -344,47 +397,82 @@ section
 			top: 0
 			width: 20%
 			
+			+below(700px)
+				left: 0
+				width: 60%
+			
 	.three
 		img
 			left: 1%
 			top: 40%
 			width: 20%
 			
+			+below(700px)
+				left: 10%
+				width: 60%
+			
 	.four
 		img
 			right: 5%
 			top: 10%
 			width: 22%
+
+			+below(700px)
+				top: 3%
+				width: 52%
 	
 	.five
 		img
 			right: 20%
 			top: 25%
 			width: 18%
+			
+			+below(700px)
+				right: 0%
+				top: 55%
+				width: 48%
 	
 	.six
 		img
 			left: 40%
 			top: 50%
 			width: 20%
-	
+			
+			+below(700px)
+				right: 0%
+				top: 50%
+				width: 60%
+			
 	.seven
 		video
 			width: 25%
 			top: 16%
 			left: 40%
 			
+			+below(700px)
+				right: 45%
+				top: 10%
+				width: 30%
+			
 	.eight
 		video
 			width: 25%
 			top: 40%
 			left: 25%
+			
+			+below(700px)
+				width: 45%
+				top: 30%
+				left: 5%
 	
 	.nine
 		video
 			width: 25%
 			top: 50%
 			right: 10%
+			
+			+below(700px)
+				width: 65%
 	
 	.image-wrap
 		width: 60%
