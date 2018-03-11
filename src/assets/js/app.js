@@ -1,6 +1,6 @@
 import $ from 'jquery'
 import { TweenMax, TimelineMax, Linear } from 'gsap'
-import { Howl } from 'howler'
+import { Howl, Howler } from 'howler'
 import enableInlineVideo from 'iphone-inline-video'
 import { Queue, Section } from './direct-manipulation'
 import debounce from 'lodash/debounce'
@@ -9,6 +9,20 @@ require('babel-polyfill')
 
 const $window = $(window)
 let wHeight = $window.height()
+let muted = false
+
+const toggleSound = () => {
+    if (muted) {
+        Howler.volume(1)
+        muted = false
+        $('#sound-state').text('ON')
+    }
+    else {
+        Howler.volume(0)
+        muted = true
+        $('#sound-state').text('OFF')
+    }
+}
 
 const switchVideo = () => {
     wHeight = $window.height()
@@ -115,23 +129,23 @@ let step = 0
 const steps = [
     {
         name: 'intro',
-        start: 0.05,
+        start: 0.01,
         end: 4.0
     },
     {
         name: 'backwards-speed',
-        start: 4.05,
+        start: 4.01,
         end: 5.0,
         reverse: true
     },
     {
         name: 'speed',
-        start: 5.05,
+        start: 5.01,
         end: 9.21
     },
     {
         name: 'sequence',
-        start: 9.25,
+        start: 9.22,
         end: 60
     }
 ]
@@ -281,33 +295,16 @@ const endPress = function (ev) {
     }
 }
 
-$('body').on('mousedown', startPress)
-$('body').on('mouseup', endPress)
+$('#toggle-sound').on('click', toggleSound)
 
-$('body').on('touchstart', startPress)
-$('body').on('touchend', endPress)
+$('#intro').on('mousedown', startPress)
+$('#intro').on('mouseup', endPress)
+
+$('#intro').on('touchstart', startPress)
+$('#intro').on('touchend', endPress)
 
 $('body').on('keydown', startPress)
 $('body').on('keyup', endPress)
-
-// $(document).on({
-//     'show': function () {
-//         if (!reached) {
-//             bgStart.play()
-//         }
-//         else {
-//             bgEnd.play()
-//         }
-//     },
-//     'hide': function () {
-//         if (!reached) {
-//             bgStart.pause()
-//         }
-//         else {
-//             bgEnd.pause()
-//         }
-//     }
-// })
 
 $window.on('resize', debounce(switchVideo, 100))
 
@@ -341,3 +338,22 @@ $window.on('scroll', throttle((ev) => {
         ticker.removeClass('animated')
     }
 }, 50))
+
+// $(document).on({
+//     'show': function () {
+//         if (!reached) {
+//             bgStart.play()
+//         }
+//         else {
+//             bgEnd.play()
+//         }
+//     },
+//     'hide': function () {
+//         if (!reached) {
+//             bgStart.pause()
+//         }
+//         else {
+//             bgEnd.pause()
+//         }
+//     }
+// })
