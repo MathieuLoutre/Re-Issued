@@ -95,7 +95,7 @@ export class Queue {
     }
 
     resetBounds () {
-        this.sections.forEach((section) => section.resetBounds())
+        this.sections.forEach((section) => section.setBounds())
     }
 
     loop () {
