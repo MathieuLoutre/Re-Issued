@@ -10,7 +10,7 @@ require('babel-polyfill')
 window.$ = $
 
 const $window = $(window)
-let wHeight = $window.innerHeight()
+let wHeight = $window.outerHeight()
 let muted = false
 
 const toggleSound = () => {
@@ -27,7 +27,7 @@ const toggleSound = () => {
 }
 
 const switchVideo = () => {
-    wHeight = $window.innerHeight()
+    wHeight = $window.outerHeight()
 
     if (wHeight > $window.width()) {
         $video.html('<source src="/assets/images/mobile.mp4">')
@@ -320,7 +320,7 @@ const ticker = $('#shop-now .ticker')
 
 $window.on('scroll', throttle((ev) => {
     const scroll = $window.scrollTop()
-    const newHeight = $window.innerHeight()
+    const newHeight = $window.outerHeight()
 
     if (newHeight !== wHeight) {
         wHeight = newHeight

@@ -53,7 +53,7 @@ export class Section {
     }
 
     setBounds () {
-        const wHeight = $window.innerHeight()
+        const wHeight = $window.outerHeight()
 
         this.start = this.trigger * wHeight
         this.end = this.start + this.length * wHeight
