@@ -7,8 +7,10 @@ import debounce from 'lodash/debounce'
 import throttle from 'lodash/throttle'
 require('babel-polyfill')
 
+window.$ = $
+
 const $window = $(window)
-let wHeight = $window.height()
+let wHeight = $window.innerHeight()
 let muted = false
 
 const toggleSound = () => {
@@ -25,7 +27,7 @@ const toggleSound = () => {
 }
 
 const switchVideo = () => {
-    wHeight = $window.height()
+    wHeight = $window.innerHeight()
 
     if (wHeight > $window.width()) {
         $video.html('<source src="/assets/images/mobile.mp4">')
@@ -318,7 +320,7 @@ const ticker = $('#shop-now .ticker')
 
 $window.on('scroll', throttle((ev) => {
     const scroll = $window.scrollTop()
-    const newHeight = $window.height()
+    const newHeight = $window.innerHeight()
 
     if (newHeight !== wHeight) {
         wHeight = newHeight
