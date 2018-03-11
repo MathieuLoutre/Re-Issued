@@ -337,7 +337,10 @@ $window.on('scroll', throttle((ev) => {
         video.pause()
     }
     else {
-        video.play()
+        if (video.paused) {
+            video.play()
+            console.log('PLAYYY')            
+        }
     }
 
     if (scroll > 0 && scroll < wHeight * 2) {
