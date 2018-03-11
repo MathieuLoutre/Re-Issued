@@ -171,8 +171,7 @@ let reached = false
 
 const introSound = new Howl({
     src: ['./assets/images/loop.mp3'],
-    loop: true,
-    autoplay: true
+    loop: true
 })
 
 const loadingSound = new Howl({
@@ -295,7 +294,7 @@ const endPress = function (ev) {
 
         loadingSound.pause()
 
-        if (endTime - startTime > 1000) {
+        if (endTime - startTime > 500) {
             reverseSound.seek(0)
             reverseSound.play()
         }
