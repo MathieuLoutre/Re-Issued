@@ -94,6 +94,10 @@ export class Queue {
         })
     }
 
+    resetBounds () {
+        this.sections.forEach((section) => section.resetBounds())
+    }
+
     loop () {
         requestAnimationFrame(this.loop.bind(this))
         this.sections.forEach((section) => section.update(this.currentScroll))

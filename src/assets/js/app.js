@@ -318,6 +318,12 @@ const ticker = $('#shop-now .ticker')
 
 $window.on('scroll', throttle((ev) => {
     const scroll = $window.scrollTop()
+    const newHeight = $window.height()
+
+    if (newHeight !== wHeight) {
+        wHeight = newHeight
+        animationQueue.resetBounds()
+    }
 
     if (scroll > wHeight) {
         video.pause()
