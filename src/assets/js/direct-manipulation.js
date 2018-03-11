@@ -46,15 +46,9 @@ export class Section {
         this.progress = 0
         this.trigger = trigger
         this.length = length || 0
-
-        this.setBounds()
-
-        $window.on('resize', $.proxy(debounce(this.setBounds, 100), this))
     }
 
-    setBounds () {
-        const wHeight = $window.outerHeight()
-
+    setBounds (wHeight) {
         this.start = this.trigger * wHeight
         this.end = this.start + this.length * wHeight
 
@@ -83,9 +77,10 @@ export class Section {
 }
 
 export class Queue {
-    constructor (sections) {
+    constructor (sections, wHeight) {
         this.sections = sections || []
         this.currentScroll = $window.scrollTop()
+        this.resetBounds(wHeight)
 
         this.loop()
 
@@ -94,8 +89,8 @@ export class Queue {
         })
     }
 
-    resetBounds () {
-        this.sections.forEach((section) => section.setBounds())
+    resetBounds (wHeight) {
+        this.sections.forEach((section) => section.setBounds(wHeight))
     }
 
     loop () {

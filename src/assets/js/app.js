@@ -10,7 +10,7 @@ require('babel-polyfill')
 window.$ = $
 
 const $window = $(window)
-let wHeight = $window.outerHeight()
+let wHeight = $('#intro').height()
 let muted = false
 
 const toggleSound = () => {
@@ -26,8 +26,9 @@ const toggleSound = () => {
     }
 }
 
-const switchVideo = () => {
-    wHeight = $window.outerHeight()
+const resizeHandler = () => {
+    wHeight = $('#intro').height()
+    animationQueue.resetBounds(wHeight)
 
     if (wHeight > $window.width()) {
         $video.html('<source src="/assets/images/mobile.mp4">')
@@ -93,7 +94,7 @@ const animationQueue = new Queue([
         trigger: 11,
         length: 10
     })
-])
+], wHeight)
 
 const loadingTimeline = new TimelineMax({ onComplete: () => {
     loadedTimeline.play()
@@ -117,7 +118,7 @@ if (mobile) {
 const $video = $('#intro-video')
 const $progress = $('#progress')
 
-switchVideo()
+resizeHandler()
 
 const video = $video.get(0)
 enableInlineVideo(video)
@@ -312,7 +313,7 @@ $('#intro').on('touchend', endPress)
 $('body').on('keydown', startPress)
 $('body').on('keyup', endPress)
 
-$window.on('resize', debounce(switchVideo, 100))
+$window.on('resize', debounce(resizeHandler, 100))
 
 const enterTheArchives = $('#enter-the-archives .bg-type')
 const shopNow = $('#shop-now .bg-type')
@@ -320,12 +321,6 @@ const ticker = $('#shop-now .ticker')
 
 $window.on('scroll', throttle((ev) => {
     const scroll = $window.scrollTop()
-    const newHeight = $window.outerHeight()
-
-    if (newHeight !== wHeight) {
-        wHeight = newHeight
-        animationQueue.resetBounds()
-    }
 
     if (scroll > wHeight) {
         video.pause()
