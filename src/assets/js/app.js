@@ -106,7 +106,11 @@ loadedTimeline.to('.logo-wrapper', 0.5, { top: '7%' }, 'reduce')
 loadedTimeline.to('.menu-top', 2, { opacity: 1 }, 'reveal')
 loadedTimeline.to('.menu-bottom', 2, { opacity: 1 }, 'reveal')
 
-// const mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+const mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+
+if (mobile) {
+    $('#cta').html('<span>Tap and Hold</span>')
+}
 
 const $video = $('#intro-video')
 const $progress = $('#progress')
