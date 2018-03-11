@@ -86,7 +86,7 @@ loadingTimeline.staggerTo('#mark path', 0.4, { fillOpacity: 1 }, 0.25)
 
 const loadedTimeline = new TimelineMax({ paused: true })
 loadedTimeline.add(() => $('body').removeClass('no-scroll'))
-loadedTimeline.to('#smoke-screen', 0.5, { y: '-100%' }, 'reduce')
+loadedTimeline.to('#smoke-screen', 0.5, { opacity: 0, display: 'none' }, 'reduce')
 loadedTimeline.to('#mark', 0.5, { width: '30%' }, 'reduce')
 loadedTimeline.to('.logo-wrapper', 0.5, { top: '3rem' }, 'reduce')
 loadedTimeline.to('.menu-top', 2, { opacity: 1 }, 'reveal')
