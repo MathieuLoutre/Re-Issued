@@ -118,7 +118,7 @@ section
 	left: 10%
 	position: fixed
 	z-index: 500
-	top: 32%
+	top: 40%
 
 	svg
 		width: 100%
@@ -231,12 +231,7 @@ section
 			width: 500%
 			left: -250%
 			position: absolute
-			animation: marquee-left 30s linear infinite alternate
 			
-		&:nth-child(odd)
-			.type
-				animation: marquee-right 30s linear infinite alternate
-
 		&:nth-child(1)
 			.type
 				background-position: 20% 0
@@ -247,12 +242,20 @@ section
 		
 		&:nth-child(3)
 			.type
-				background-position: 10% 0
+				background-position: 45% 0
 				
 		&:nth-child(4)
 			.type
-				background-position: 30% 0
+				background-position: 55% 0
+				
+	&.animated
+		.type-band
+			.type
+				animation: marquee-left 30s linear infinite alternate
 
+			&:nth-child(odd)
+				.type
+					animation: marquee-right 30s linear infinite alternate
 
 #enter-the-archives
 	.bg-type
@@ -263,7 +266,7 @@ section
 			height: 25%
 	
 			.type
-				background: url('/assets/images/enter-the-archives.svg')
+				background-image: url('/assets/images/enter-the-archives.svg')
 	
 #no-caps-wrap
 	background: grey
@@ -441,7 +444,7 @@ section
 			height: 50%
 	
 			.type
-				background: url('/assets/images/shop-now-combo.svg')
+				background-image: url('/assets/images/shop-now-combo.svg')
 
 	.ticker
 		color: white
@@ -454,10 +457,13 @@ section
 		.ticker-text
 			padding-left: 100%
 			width: auto
-			animation: marquee 30s linear infinite
 			white-space: nowrap
 			display: inline-block
 			font-family: Druk
 			font-size: 10vh
 			text-transform: uppercase
+			
+		&.animated
+			.ticker-text
+				animation: marquee 30s linear infinite
 		

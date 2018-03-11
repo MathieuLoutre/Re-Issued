@@ -311,11 +311,33 @@ $('body').on('keyup', endPress)
 
 $window.on('resize', debounce(switchVideo, 100))
 
+const enterTheArchives = $('#enter-the-archives .bg-type')
+const shopNow = $('#shop-now .bg-type')
+const ticker = $('#shop-now .ticker')
+
 $window.on('scroll', throttle((ev) => {
-    if ($window.scrollTop() > wHeight) {
+    const scroll = $window.scrollTop()
+
+    if (scroll > wHeight) {
         video.pause()
     }
     else {
         video.play()
+    }
+
+    if (scroll > 0 && scroll < wHeight * 2) {
+        enterTheArchives.addClass('animated')
+    }
+    else {
+        enterTheArchives.removeClass('animated')
+    }
+
+    if (scroll > wHeight * 20) {
+        shopNow.addClass('animated')
+        ticker.addClass('animated')
+    }
+    else {
+        shopNow.removeClass('animated')
+        ticker.removeClass('animated')
     }
 }, 50))
