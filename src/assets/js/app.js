@@ -1,7 +1,7 @@
 import $ from 'jquery'
 import { TweenMax, TimelineMax, Linear } from 'gsap'
 import { Howl, Howler } from 'howler'
-// import enableInlineVideo from 'iphone-inline-video'
+import enableInlineVideo from 'iphone-inline-video'
 import { Queue, Section } from './direct-manipulation'
 import debounce from 'lodash/debounce'
 import throttle from 'lodash/throttle'
@@ -109,11 +109,7 @@ loadedTimeline.to('.logo-wrapper', 0.5, { top: '7%' }, 'reduce')
 loadedTimeline.to('.menu-top', 2, { opacity: 1 }, 'reveal')
 loadedTimeline.to('.menu-bottom', 2, { opacity: 1 }, 'reveal')
 
-const mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
-
-if (mobile) {
-    $('#cta').html('<span>Tap and Hold</span>')
-}
+const touch = 'ontouchstart' in window
 
 const $video = $('#intro-video')
 const $progress = $('#progress')
@@ -121,7 +117,7 @@ const $progress = $('#progress')
 resizeHandler()
 
 const video = $video.get(0)
-// enableInlineVideo(video)
+enableInlineVideo(video)
 
 let loaded = false
 
@@ -171,7 +167,8 @@ let reached = false
 
 const introSound = new Howl({
     src: ['./assets/images/loop.mp3'],
-    loop: true
+    loop: true,
+    autoplay: !touch
 })
 
 const loadingSound = new Howl({
@@ -211,11 +208,11 @@ const videoStateManager = function () {
 
         _update(progress)
 
-        // if (elapsed > 500 && !loadingSound.playing()) {
-        //     introSound.pause()
-        //     loadingSound.seek(0)
-        //     loadingSound.play()
-        // }
+        if (elapsed > 500 && !loadingSound.playing()) {
+            introSound.pause()
+            loadingSound.seek(0)
+            loadingSound.play()
+        }
 
         if (progress >= 100) {
             reached = true
@@ -226,10 +223,10 @@ const videoStateManager = function () {
 
             TweenMax.to('#progress-wrapper', 0.5, { opacity: 0 })
 
-            // loadingSound.pause()
-            // loadingSound.seek(0)
-            // mainSound.seek(0)
-            // mainSound.play()
+            loadingSound.pause()
+            loadingSound.seek(0)
+            mainSound.seek(0)
+            mainSound.play()
         }
         else {
             requestAnimationFrame(videoStateManager)
@@ -297,32 +294,38 @@ const endPress = function (ev) {
     if (!reached) {
         step = 1
 
-        // loadingSound.pause()
+        loadingSound.pause()
 
-        // if (endTime - startTime > 500) {
-        //     reverseSound.seek(0)
-        //     reverseSound.play()
-        // }
+        if (endTime - startTime > 500) {
+            reverseSound.seek(0)
+            reverseSound.play()
+        }
 
-        // introSound.pause()
-        // introSound.seek(0)
-        // introSound.play()
+        introSound.pause()
+        introSound.seek(0)
+        introSound.play()
 
         video.currentTime = steps[step].end - (steps[step].end - steps[step].start) * progress / 100
-        video.play()
     }
+
+    video.play()
 }
 
 $('#toggle-sound').on('click', toggleSound)
 
-$('#intro').on('mousedown', startPress)
-$('#intro').on('mouseup', endPress)
+if (!touch) {
+    $('#intro').on('mousedown', startPress)
+    $('#intro').on('mouseup', endPress)
 
-$('#intro').on('touchstart', startPress)
-$('#intro').on('touchend', endPress)
+    $('body').on('keydown', startPress)
+    $('body').on('keyup', endPress)
+}
+else {
+    $('#intro').on('touchstart', startPress)
+    $('#intro').on('touchend', endPress)
 
-$('body').on('keydown', startPress)
-$('body').on('keyup', endPress)
+    $('#cta').html('<span>Tap and Hold</span>')
+}
 
 $window.on('resize', debounce(resizeHandler, 100))
 
