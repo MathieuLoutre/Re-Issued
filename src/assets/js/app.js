@@ -117,7 +117,7 @@ soundAnimation.to('#bar-1', 0.4, { height: '100%' })
 soundAnimation.to('#bar-2', 0.5, { height: '100%' }, 'rise')
 soundAnimation.to('#bar-1', 0.5, { height: '60%' }, 'rise')
 soundAnimation.to('#bar-3', 0.3, { height: '100%' }, 'up')
-soundAnimation.to('#bar-1', 0.4, { height: '20%' }, 'up')
+soundAnimation.to('#bar-1', 0.4, { height: '20%' })
 soundAnimation.to('#bar-2', 0.5, { height: '20%' }, '=+0.1')
 soundAnimation.to('#bar-3', 0.3, { height: '20%' }, '=-0.2')
 
