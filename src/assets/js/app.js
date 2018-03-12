@@ -51,11 +51,6 @@ const showVideo = () => {
 // eslint-disable-next-line no-unused-vars
 const animationQueue = new Queue([
     new Section({
-        tween: TweenMax.from('#enter-the-archives .bg-type', 1, { top: '0%' }),
-        trigger: 0,
-        length: 0.8
-    }),
-    new Section({
         tween: TweenMax.from('#no-caps .strike', 1, { width: '0%' }),
         trigger: 1.8,
         length: 0.6
