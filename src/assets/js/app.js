@@ -342,7 +342,7 @@ $window.on('scroll', throttle((ev) => {
     else {
         if (video.paused) {
             video.play()
-            console.log('PLAYYY')            
+            console.log('PLAYYY')
         }
     }
 

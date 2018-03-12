@@ -1,5 +1,4 @@
 import $ from 'jquery'
-import debounce from 'lodash/debounce'
 
 const clamp = (val, min, max) => Math.min(Math.max(val, min), max)
 const lerp = (val, start, end) => start + (end - start) * val
