@@ -16,12 +16,15 @@ let muted = false
 const toggleSound = () => {
     if (muted) {
         Howler.volume(1)
+        soundAnimation.play()
         muted = false
         $('#sound-state').text('ON')
     }
     else {
         Howler.volume(0)
         muted = true
+        soundAnimation.pause()
+        TweenMax.to('#sound-icon .wrap div', 0.5, { height: '20%' })
         $('#sound-state').text('OFF')
     }
 }
@@ -47,6 +50,11 @@ const showVideo = () => {
 
 // eslint-disable-next-line no-unused-vars
 const animationQueue = new Queue([
+    new Section({
+        tween: TweenMax.from('#enter-the-archives .bg-type', 1, { top: '0%' }),
+        trigger: 0,
+        length: 0.8
+    }),
     new Section({
         tween: TweenMax.from('#no-caps .strike', 1, { width: '0%' }),
         trigger: 1.8,
@@ -109,6 +117,15 @@ loadedTimeline.to('.logo-wrapper', 0.5, { top: '7%' }, 'reduce')
 loadedTimeline.to('.menu-top', 2, { opacity: 1 }, 'reveal')
 loadedTimeline.to('.menu-bottom', 2, { opacity: 1 }, 'reveal')
 
+const soundAnimation = new TimelineMax({ repeat: -1, yoyo: true }).timeScale(1.5)
+soundAnimation.to('#bar-1', 0.4, { height: '100%' })
+soundAnimation.to('#bar-2', 0.5, { height: '100%' }, 'rise')
+soundAnimation.to('#bar-1', 0.5, { height: '60%' }, 'rise')
+soundAnimation.to('#bar-3', 0.3, { height: '100%' }, 'up')
+soundAnimation.to('#bar-1', 0.4, { height: '20%' }, 'up')
+soundAnimation.to('#bar-2', 0.5, { height: '20%' }, '=+0.1')
+soundAnimation.to('#bar-3', 0.3, { height: '20%' }, '=-0.2')
+
 const touch = 'ontouchstart' in window
 
 const $video = $('#intro-video')
@@ -149,7 +166,7 @@ const steps = [
     {
         name: 'sequence',
         start: 9.22,
-        end: 60
+        end: 90
     }
 ]
 
@@ -185,6 +202,23 @@ const mainSound = new Howl({
     loop: true
 })
 
+$video.on('ended', () => {
+    step = 0
+
+    TweenMax.to('#progress-wrapper', 0.5, { opacity: 1 })
+
+    progress = 0
+    endProgress = 0
+    reached = false
+    video.currentTime = 0
+    video.play()
+
+    $progress.css('width', '0')
+
+    mainSound.pause()
+    introSound.play()
+})
+
 setInterval(function () {
     if (steps[step].pass && video.currentTime >= steps[step].end) {
         step++
@@ -192,7 +226,6 @@ setInterval(function () {
     else {
         if (video.currentTime >= steps[step].end && !down && !steps[step].reverse) {
             video.currentTime = steps[step].start
-            video.play()
         }
     }
 }, 30)
@@ -219,7 +252,6 @@ const videoStateManager = function () {
             step = 3
 
             video.currentTime = steps[step].start
-            video.play()
 
             TweenMax.to('#progress-wrapper', 0.5, { opacity: 0 })
 
@@ -249,7 +281,6 @@ const videoStateManager = function () {
                 _update(0)
 
                 video.currentTime = steps[step].start
-                video.play()
             }
         }
     }
@@ -269,7 +300,6 @@ const startPress = function (ev) {
 
         if (progress <= 0) {
             video.currentTime = steps[step].start
-            video.play()
 
             startTime = Date.now()
             videoStateManager()
@@ -278,7 +308,6 @@ const startPress = function (ev) {
             startTime = Date.now() - ((endProgress / 100) * maxTime)
 
             video.currentTime = steps[step].start + (steps[step].end - steps[step].start) * endProgress / 100
-            video.play()
         }
     }
 }
@@ -307,8 +336,6 @@ const endPress = function (ev) {
 
         video.currentTime = steps[step].end - (steps[step].end - steps[step].start) * progress / 100
     }
-
-    video.play()
 }
 
 $('#toggle-sound').on('click', toggleSound)
@@ -342,7 +369,6 @@ $window.on('scroll', throttle((ev) => {
     else {
         if (video.paused) {
             video.play()
-            console.log('PLAYYY')
         }
     }
 
@@ -362,22 +388,3 @@ $window.on('scroll', throttle((ev) => {
         ticker.removeClass('animated')
     }
 }, 50))
-
-// $(document).on({
-//     'show': function () {
-//         if (!reached) {
-//             bgStart.play()
-//         }
-//         else {
-//             bgEnd.play()
-//         }
-//     },
-//     'hide': function () {
-//         if (!reached) {
-//             bgStart.pause()
-//         }
-//         else {
-//             bgEnd.pause()
-//         }
-//     }
-// })
