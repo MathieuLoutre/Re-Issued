@@ -145,23 +145,23 @@ const steps = [
     {
         name: 'intro',
         start: 0.01,
-        end: 4.0
+        end: 8.0
     },
     {
         name: 'backwards-speed',
-        start: 4.01,
-        end: 6.0,
+        start: 8.01,
+        end: 9.0,
         reverse: true
     },
     {
         name: 'speed',
-        start: 6.01,
-        end: 10.00
+        start: 9.01,
+        end: 13.00
     },
     {
         name: 'sequence',
-        start: 10.01,
-        end: 47
+        start: 13.01,
+        end: 1.00
     }
 ]
 
