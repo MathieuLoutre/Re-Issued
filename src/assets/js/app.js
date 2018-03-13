@@ -161,7 +161,7 @@ const steps = [
     {
         name: 'sequence',
         start: 13.01,
-        end: 1.00
+        end: 59.00
     }
 ]
 
