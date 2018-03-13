@@ -156,7 +156,7 @@ const steps = [
     {
         name: 'speed',
         start: 9.01,
-        end: 12.00
+        end: 13.00
     },
     {
         name: 'sequence',
