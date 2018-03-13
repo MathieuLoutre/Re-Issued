@@ -382,3 +382,11 @@ $window.on('scroll', throttle((ev) => {
         ticker.removeClass('animated')
     }
 }, 50))
+
+$('#watch-film').on('click', (ev) => {
+    TweenMax.to('#video-overlay', 0.6, { y: '0%' })
+})
+
+$('#close-video').on('click', (ev) => {
+    TweenMax.to('#video-overlay', 0.6, { y: '100%' })
+})
