@@ -51,6 +51,13 @@ const showVideo = () => {
 // eslint-disable-next-line no-unused-vars
 const animationQueue = new Queue([
     new Section({
+        tween: new TimelineMax({ paused: true })
+            .to('#enter-the-archives .type-band.left .type', 1, { x: '-50%' }, 'start')
+            .to('#enter-the-archives .type-band.right .type', 1, { x: '50%' }, 'start'),
+            trigger: 0.2,
+            length: 2
+    }),
+    new Section({
         tween: TweenMax.from('#no-caps .strike', 1, { width: '0%' }),
         trigger: 1.8,
         length: 0.6
@@ -96,7 +103,14 @@ const animationQueue = new Queue([
             .to('#no-trainers, #no-trainers-wrap .image-stack', 1, { y: '-100%', ease: Linear.easeNone }),
         trigger: 11,
         length: 10
-    })
+    }),
+    new Section({
+        tween: new TimelineMax({ paused: true })
+            .to('#shop-now .type-band.left .type', 1, { x: '-50%' }, 'start')
+            .to('#shop-now .type-band.right .type', 1, { x: '50%' }, 'start'),
+            trigger: 20,
+            length: 1
+    }),
 ], wHeight)
 
 const loadingTimeline = new TimelineMax({ onComplete: () => {
@@ -109,8 +123,9 @@ loadedTimeline.add(() => $('body').removeClass('no-scroll'))
 loadedTimeline.to('#smoke-screen', 0.5, { opacity: 0, display: 'none' }, 'reduce')
 loadedTimeline.to('#mark', 0.5, { width: '30%' }, 'reduce')
 loadedTimeline.to('.logo-wrapper', 0.5, { top: '7%' }, 'reduce')
-loadedTimeline.to('.menu-top', 2, { opacity: 1 }, 'reveal')
-loadedTimeline.to('.menu-bottom', 2, { opacity: 1 }, 'reveal')
+loadedTimeline.to('#intro-video', 1.5, { opacity: 1 }, 'reduce')
+loadedTimeline.to('.menu-top', 1, { opacity: 1, y: '0%' }, 'reduce')
+loadedTimeline.to('.menu-bottom', 1, { opacity: 1, y: '0%' }, 'reduce')
 
 const soundAnimation = new TimelineMax({ repeat: -1, yoyo: true }).timeScale(1.5)
 soundAnimation.to('#bar-1', 0.4, { height: '100%' })
@@ -179,9 +194,13 @@ let reached = false
 
 const introSound = new Howl({
     src: ['./assets/images/loop.mp3'],
-    loop: true,
-    autoplay: !touch
+    loop: true
 })
+
+if (!touch) {
+    introSound.play()
+    introSound.fade(0, 1, 2000)
+}
 
 const loadingSound = new Howl({
     src: ['./assets/images/load.mp3'],
@@ -223,7 +242,7 @@ setInterval(function () {
             video.currentTime = steps[step].start
         }
     }
-}, 30)
+}, 100)
 
 const _update = function (progress) {
     $progress.css('width', `${progress}%`)
@@ -346,40 +365,20 @@ else {
     $('#intro').on('touchstart', startPress)
     $('#intro').on('touchend', endPress)
 
-    $('#cta').html('<span>Tap and Hold</span>')
+    $('#cta').html('<span>Tap</span> <span>and Hold</span>')
 }
 
 $window.on('resize', debounce(resizeHandler, 100))
 
-const enterTheArchives = $('#enter-the-archives .bg-type')
-const shopNow = $('#shop-now .bg-type')
 const ticker = $('#shop-now .ticker')
 
 $window.on('scroll', throttle((ev) => {
     const scroll = $window.scrollTop()
 
-    if (scroll > wHeight) {
-        video.pause()
-    }
-    else {
-        if (video.paused) {
-            video.play()
-        }
-    }
-
-    if (scroll > 0 && scroll < wHeight * 2) {
-        enterTheArchives.addClass('animated')
-    }
-    else {
-        enterTheArchives.removeClass('animated')
-    }
-
     if (scroll > wHeight * 20) {
-        shopNow.addClass('animated')
         ticker.addClass('animated')
     }
     else {
-        shopNow.removeClass('animated')
         ticker.removeClass('animated')
     }
 }, 50))
