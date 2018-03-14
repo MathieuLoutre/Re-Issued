@@ -559,12 +559,18 @@ section
 	.image-wrap
 		width: 50%
 
+		+below(700px)
+			width: 90%
+
 		path
 			fill: black
 
 		.strike
 			background: black
 			top: 59%
+
+			+below(700px)
+				height: 2.5vmax
 
 #no-trainers-wrap
 	height: 1000vh
@@ -665,6 +671,9 @@ section
 	
 	.image-wrap
 		width: 60%
+		
+		+below(700px)
+			width: 90%
 
 		path
 			fill: white
