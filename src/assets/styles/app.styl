@@ -35,7 +35,7 @@ section
 	height: 100vh
 	position: relative
 
-+below(600px)
++below(700px)
 	.mobile-hide
 		display: none !important
 
@@ -128,14 +128,66 @@ section
 		width: 100%
 		display: none
 		text-align: right
+		justify-content: space-between
+		align-items: flex-end
 		
-		div
+		.music-credit
+			font-family: Helvetica
+			font-size: 0.6rem
+			text-transform: none
+			width: 50%
+			text-align: center
+			padding: 0 0.5rem
+		
+		#watch-film
 			width: 100%
 			text-transform: uppercase
 			letter-spacing: 0.1em
 			font-family: Helvetica, sans-serif
 			font-size: 0.75rem
+			
+	.left.bottom
+		display: none
+
+		.socials
+			display: flex
+			justify-content: flex-start
+			align-items: flex-end
+
+			.share
+				margin-right: 0.5rem
+
+			a
+				margin: 0 0.5rem
+				width: auto
+
+			svg
+				height: 1.25rem
+
+		.music-credit
+			font-family: Helvetica
+			font-size: 0.8rem
+			text-transform: none
+
+		.top
+			display: flex
+			flex-direction: column
+			justify-content: center
+			align-items: center
+			
+			svg
+				display: block
+				padding-top: 0.5em
+				width: 0.8rem
+				transform: rotateZ(180deg)
 	
+	&.bottom
+		.left
+			display: none
+			
+		.left.bottom
+			display: flex
+			
 	+below(700px)
 		width: 90%
 		left: 5%
@@ -146,7 +198,23 @@ section
 			width: auto
 
 		.right
-			display: block
+			display: flex
+
+			.music-credit
+				display: none
+
+		&.bottom
+			.left
+				display: flex
+				
+				#shop-link
+					display: none
+
+			.left.bottom
+				display: none
+			
+			.music-credit
+				display: block
 
 #smoke-screen
 	position: fixed

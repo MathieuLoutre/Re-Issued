@@ -1,5 +1,6 @@
 import $ from 'jquery'
 import { TweenMax, TimelineMax, Linear } from 'gsap'
+import ScrollToPlugin from "gsap/ScrollToPlugin"
 import { Howl, Howler } from 'howler'
 import enableInlineVideo from 'iphone-inline-video'
 import { Queue, Section } from './direct-manipulation'
@@ -26,6 +27,19 @@ const toggleSound = () => {
         soundAnimation.pause()
         TweenMax.to('#sound-icon .wrap div', 0.5, { height: '20%' })
         $('#sound-state').text('OFF')
+    }
+}
+
+const setScrollClasses = () => {
+    const scroll = $window.scrollTop()
+
+    if (scroll > wHeight * 20) {
+        $('.menu-bottom').addClass('bottom')
+        ticker.addClass('animated')
+    }
+    else {
+        ticker.removeClass('animated')
+        $('.menu-bottom').removeClass('bottom')
     }
 }
 
@@ -372,16 +386,8 @@ $window.on('resize', debounce(resizeHandler, 100))
 
 const ticker = $('#shop-now .ticker')
 
-$window.on('scroll', throttle((ev) => {
-    const scroll = $window.scrollTop()
-
-    if (scroll > wHeight * 20) {
-        ticker.addClass('animated')
-    }
-    else {
-        ticker.removeClass('animated')
-    }
-}, 50))
+setScrollClasses()
+$window.on('scroll', throttle(setScrollClasses, 50))
 
 $('#watch-film').on('click', (ev) => {
     TweenMax.to('#video-overlay', 0.6, { y: '0%' })
@@ -389,4 +395,8 @@ $('#watch-film').on('click', (ev) => {
 
 $('#close-video').on('click', (ev) => {
     TweenMax.to('#video-overlay', 0.6, { y: '100%' })
+})
+
+$('.top').on('click', (ev) => {
+    TweenMax.to(window, 1.5, { scrollTo: 0 })
 })
