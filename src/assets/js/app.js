@@ -90,7 +90,7 @@ let animations = [
 ]
 
 // If sticky is not supported we have to make these animations ourselves
-if ($('.svg-wrap').css('position') !== 'sticky') {
+if (!$('.svg-wrap').css('position').contains('sticky')) {
     animations = animations.concat([
         new Section({
             tween: TweenMax.set('#no-caps', { position: 'fixed' }),
