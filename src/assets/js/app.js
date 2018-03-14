@@ -1,6 +1,6 @@
 import $ from 'jquery'
 import { TweenMax, TimelineMax, Linear } from 'gsap'
-import ScrollToPlugin from "gsap/ScrollToPlugin"
+import ScrollToPlugin from 'gsap/ScrollToPlugin' // eslint-disable-line no-unused-vars
 import { Howl, Howler } from 'howler'
 import enableInlineVideo from 'iphone-inline-video'
 import { Queue, Section } from './direct-manipulation'
@@ -10,9 +10,51 @@ require('babel-polyfill')
 
 Howler.mobileAutoEnable = false
 
+const stickySupport = $('.svg-wrap').css('position').toString().indexOf('sticky') > -1
+const mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+
 const $window = $(window)
 let wHeight = $('#intro').height()
 let muted = false
+let quiet = false
+
+let shopNowTheshold = () => wHeight * 13
+
+if (!mobile || !stickySupport) {
+    $('#no-caps-wrap').append(`
+        <section class="image-stack six">
+            <img src="./assets/images/image4.jpg">
+        </section>
+
+        <section class="image-stack seven">
+            <img src="./assets/images/image4b.jpg">
+        </section>
+
+        <section class="image-stack eight">
+            <img src="./assets/images/image5.jpg">
+        </section>
+    `)
+
+    $('<section class="image-stack six"><img src="./assets/images/image8.jpg"></section>').insertAfter('#no-trainers-wrap .three')
+
+    $('#no-trainers-wrap').append(`
+        <section class="image-stack seven">
+            <img src="./assets/images/image10.jpg">
+        </section>
+
+        <section class="image-stack eight">
+            <img src="./assets/images/image11.jpg">
+        </section>
+
+        <section class="image-stack nine">
+            <video autoplay muted loop playsinline webkit-playsinline>
+                <source src="./assets/images/loop5.mp4">
+            </video>
+        </section>
+    `)
+
+    shopNowTheshold = () => wHeight * 20
+}
 
 const toggleSound = () => {
     if (muted) {
@@ -33,7 +75,20 @@ const toggleSound = () => {
 const setScrollClasses = () => {
     const scroll = $window.scrollTop()
 
-    if (scroll > wHeight * 20) {
+    if (scroll > wHeight * 0.5) {
+        if (!muted && !quiet) {
+            Howler.volume(0.5)
+            quiet = true
+        }
+    }
+    else {
+        if (!muted && quiet) {
+            Howler.volume(1)
+            quiet = false
+        }
+    }
+
+    if (scroll > shopNowTheshold()) {
         $('.menu-bottom').addClass('bottom')
         ticker.addClass('animated')
     }
@@ -62,14 +117,13 @@ const showVideo = () => {
     }
 }
 
-// eslint-disable-next-line no-unused-vars
-const animationQueue = new Queue([
+let animations = [
     new Section({
-        tween: new TimelineMax({ paused: true })
+        tween: new TimelineMax({ paused: true, ease: Linear.easeNone })
             .to('#enter-the-archives .type-band.left .type', 1, { x: '-50%' }, 'start')
             .to('#enter-the-archives .type-band.right .type', 1, { x: '50%' }, 'start'),
-            trigger: 0.2,
-            length: 2
+        trigger: 0.2,
+        length: 2
     }),
     new Section({
         tween: TweenMax.from('#no-caps .strike', 1, { width: '0%' }),
@@ -77,59 +131,66 @@ const animationQueue = new Queue([
         length: 0.6
     }),
     new Section({
-        tween: TweenMax.set('#no-caps', { position: 'fixed' }),
-        trigger: 2
-    }),
-    new Section({
-        tween: new TimelineMax({ paused: true, ease: Linear.easeNone })
-            .to('#no-caps-wrap .image-stack.one', 1, { y: '0%' })
-            .to('#no-caps-wrap .image-stack.two', 1, { y: '0%' })
-            .to('#no-caps-wrap .image-stack.three', 1, { y: '0%' })
-            .to('#no-caps-wrap .image-stack.four', 1, { y: '0%' })
-            .to('#no-caps-wrap .image-stack.five', 1, { y: '0%' })
-            .to('#no-caps-wrap .image-stack.six', 1, { y: '0%' })
-            .to('#no-caps-wrap .image-stack.seven', 1, { y: '0%' })
-            .to('#no-caps-wrap .image-stack.eight', 1, { y: '0%' })
-            .to('#no-caps, #no-caps-wrap .image-stack', 1, { y: '-100%' }),
-        trigger: 2,
-        length: 9
-    }),
-    new Section({
         tween: TweenMax.from('#no-trainers .strike', 1, { width: '0%' }),
         trigger: 10.8,
         length: 0.6
     }),
     new Section({
-        tween: TweenMax.set('#no-trainers', { position: 'fixed' }),
-        trigger: 11
-    }),
-    new Section({
         tween: new TimelineMax({ paused: true, ease: Linear.easeNone })
-            .to('#no-trainers-wrap .image-stack.one', 1, { y: '0%' })
-            .to('#no-trainers-wrap .image-stack.two', 1, { y: '0%' })
-            .to('#no-trainers-wrap .image-stack.three', 1, { y: '0%' })
-            .to('#no-trainers-wrap .image-stack.four', 1, { y: '0%' })
-            .to('#no-trainers-wrap .image-stack.five', 1, { y: '0%' })
-            .to('#no-trainers-wrap .image-stack.six', 1, { y: '0%' })
-            .to('#no-trainers-wrap .image-stack.seven', 1, { y: '0%' })
-            .to('#no-trainers-wrap .image-stack.eight', 1, { y: '0%' })
-            .to('#no-trainers-wrap .image-stack.nine', 1, { y: '0%' })
-            .to('#no-trainers, #no-trainers-wrap .image-stack', 1, { y: '-100%', ease: Linear.easeNone }),
-        trigger: 11,
-        length: 10
-    }),
-    new Section({
-        tween: new TimelineMax({ paused: true })
             .to('#shop-now .type-band.left .type', 1, { x: '-50%' }, 'start')
             .to('#shop-now .type-band.right .type', 1, { x: '50%' }, 'start'),
-            trigger: 20,
-            length: 1
-    }),
-], wHeight)
+        trigger: 20,
+        length: 1
+    })
+]
 
-const loadingTimeline = new TimelineMax({ onComplete: () => {
-    loadedTimeline.play()
-} }).repeat(-1)
+// If sticky is not supported we have to make these animations ourselves
+if (!stickySupport) {
+    animations = animations.concat([
+        new Section({
+            tween: TweenMax.set('#no-caps', { position: 'fixed' }),
+            trigger: 2
+        }),
+        new Section({
+            tween: new TimelineMax({ paused: true, ease: Linear.easeNone })
+                .to('#no-caps-wrap .image-stack.one', 1, { y: '0%' })
+                .to('#no-caps-wrap .image-stack.two', 1, { y: '0%' })
+                .to('#no-caps-wrap .image-stack.three', 1, { y: '0%' })
+                .to('#no-caps-wrap .image-stack.four', 1, { y: '0%' })
+                .to('#no-caps-wrap .image-stack.five', 1, { y: '0%' })
+                .to('#no-caps-wrap .image-stack.six', 1, { y: '0%' })
+                .to('#no-caps-wrap .image-stack.seven', 1, { y: '0%' })
+                .to('#no-caps-wrap .image-stack.eight', 1, { y: '0%' })
+                .to('#no-caps, #no-caps-wrap .image-stack', 1, { y: '-100%' }),
+            trigger: 2,
+            length: 9
+        }),
+        new Section({
+            tween: TweenMax.set('#no-trainers', { position: 'fixed' }),
+            trigger: 11
+        }),
+        new Section({
+            tween: new TimelineMax({ paused: true, ease: Linear.easeNone })
+                .to('#no-trainers-wrap .image-stack.one', 1, { y: '0%' })
+                .to('#no-trainers-wrap .image-stack.two', 1, { y: '0%' })
+                .to('#no-trainers-wrap .image-stack.three', 1, { y: '0%' })
+                .to('#no-trainers-wrap .image-stack.four', 1, { y: '0%' })
+                .to('#no-trainers-wrap .image-stack.five', 1, { y: '0%' })
+                .to('#no-trainers-wrap .image-stack.six', 1, { y: '0%' })
+                .to('#no-trainers-wrap .image-stack.seven', 1, { y: '0%' })
+                .to('#no-trainers-wrap .image-stack.eight', 1, { y: '0%' })
+                .to('#no-trainers-wrap .image-stack.nine', 1, { y: '0%' })
+                .to('#no-trainers, #no-trainers-wrap .image-stack', 1, { y: '-100%', ease: Linear.easeNone }),
+            trigger: 11,
+            length: 10
+        })
+    ])
+}
+
+// eslint-disable-next-line no-unused-vars
+const animationQueue = new Queue(animations, wHeight)
+
+const loadingTimeline = new TimelineMax({ onComplete: () => loadedTimeline.play() }).repeat(-1)
 loadingTimeline.staggerTo('#mark path', 0.4, { fillOpacity: 1 }, 0.25)
 
 const loadedTimeline = new TimelineMax({ paused: true })
@@ -149,8 +210,6 @@ soundAnimation.to('#bar-3', 0.3, { height: '100%' }, 'up')
 soundAnimation.to('#bar-1', 0.4, { height: '20%' })
 soundAnimation.to('#bar-2', 0.5, { height: '20%' }, '=+0.1')
 soundAnimation.to('#bar-3', 0.3, { height: '20%' }, '=-0.2')
-
-const touch = 'ontouchstart' in window
 
 const $video = $('#intro-video')
 const $progress = $('#progress')
@@ -211,7 +270,7 @@ const introSound = new Howl({
     loop: true
 })
 
-if (!touch) {
+if (!mobile) {
     introSound.play()
     introSound.fade(0, 1, 2000)
 }
@@ -368,7 +427,7 @@ const endPress = function (ev) {
 
 $('#toggle-sound').on('click', toggleSound)
 
-if (!touch) {
+if (!mobile) {
     $('#intro').on('mousedown', startPress)
     $('#intro').on('mouseup', endPress)
 
