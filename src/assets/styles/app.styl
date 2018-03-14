@@ -689,7 +689,23 @@ section
 		img, video
 			width: 30%
 			position: absolute
+
+@supports(position: sticky)
+	.section-wrap
+		height: auto
+		overflow: visible
+
+		.svg-wrap
+			position: sticky
 		
+		.image-stack
+			transform: translateY(0%)
+			position: sticky
+			overflow: visible
+	
+	#no-trainers-wrap
+		height: auto
+
 #shop-now
 	.bg-type
 		height: 50%
