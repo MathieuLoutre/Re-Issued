@@ -13,6 +13,7 @@ Howler.mobileAutoEnable = false
 const $window = $(window)
 let wHeight = $('#intro').height()
 let muted = false
+let quiet = false
 
 const toggleSound = () => {
     if (muted) {
@@ -32,6 +33,19 @@ const toggleSound = () => {
 
 const setScrollClasses = () => {
     const scroll = $window.scrollTop()
+
+    if (scroll > wHeight * 0.5) {
+        if (!muted && !quiet) {
+            Howler.volume(0.5)
+            quiet = true
+        }
+    }
+    else {
+        if (!muted && quiet) {
+            Howler.volume(1)
+            quiet = false
+        }
+    }
 
     if (scroll > wHeight * 20) {
         $('.menu-bottom').addClass('bottom')
