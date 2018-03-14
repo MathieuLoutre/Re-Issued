@@ -35,7 +35,7 @@ if (!mobile || !stickySupport) {
         </section>
     `)
 
-    $('<section class="image-stack six"><img src="./assets/images/image10.jpg"></section>').insertAfter('#no-trainers-wrap .three')
+    $('<section class="image-stack six"><img src="./assets/images/image8.jpg"></section>').insertAfter('#no-trainers-wrap .three')
 
     $('#no-trainers-wrap').append(`
         <section class="image-stack seven">
