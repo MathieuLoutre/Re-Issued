@@ -459,3 +459,22 @@ $('#close-video').on('click', (ev) => {
 $('.top').on('click', (ev) => {
     TweenMax.to(window, 1.5, { scrollTo: 0 })
 })
+
+const socialWindow = (url) => {
+    const t = (screen.width - 570) / 2
+    const n = (screen.height - 570) / 2
+    const i = 'menubar=no,toolbar=no,status=no,width=570,height=570,top=' + n + ',left=' + t
+    window.open(url, 'NewWindow', i)
+}
+
+const siteUrl = encodeURIComponent(document.URL)
+const description = encodeURIComponent($("meta[property='og:description']").attr('content'))
+
+$('#facebook-share').on('click', function (ev) {
+    ev.preventDefault()
+    socialWindow(`https://www.facebook.com/sharer.php?u=${siteUrl}`)
+})
+$('#twitter-share').on('click', function (ev) {
+    ev.preventDefault()
+    socialWindow(`https://twitter.com/intent/tweet?url=${siteUrl}&text=${description}`)
+})
