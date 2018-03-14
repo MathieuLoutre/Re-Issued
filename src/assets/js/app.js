@@ -10,10 +10,51 @@ require('babel-polyfill')
 
 Howler.mobileAutoEnable = false
 
+const stickySupport = $('.svg-wrap').css('position').toString().indexOf('sticky') > -1
+const mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+
 const $window = $(window)
 let wHeight = $('#intro').height()
 let muted = false
 let quiet = false
+
+let shopNowTheshold = () => wHeight * 13
+
+if (!mobile || !stickySupport) {
+    $('#no-caps-wrap').append(`
+        <section class="image-stack six">
+            <img src="./assets/images/image4.jpg">
+        </section>
+
+        <section class="image-stack seven">
+            <img src="./assets/images/image4b.jpg">
+        </section>
+
+        <section class="image-stack eight">
+            <img src="./assets/images/image5.jpg">
+        </section>
+    `)
+
+    $('<section class="image-stack six"><img src="./assets/images/image10.jpg"></section>').insertAfter('#no-trainers-wrap .three')
+
+    $('#no-trainers-wrap').append(`
+        <section class="image-stack seven">
+            <img src="./assets/images/image10.jpg">
+        </section>
+
+        <section class="image-stack eight">
+            <img src="./assets/images/image11.jpg">
+        </section>
+
+        <section class="image-stack nine">
+            <video autoplay muted loop playsinline webkit-playsinline>
+                <source src="./assets/images/loop5.mp4">
+            </video>
+        </section>
+    `)
+
+    shopNowTheshold = () => wHeight * 20
+}
 
 const toggleSound = () => {
     if (muted) {
@@ -47,7 +88,7 @@ const setScrollClasses = () => {
         }
     }
 
-    if (scroll > wHeight * 20) {
+    if (scroll > shopNowTheshold()) {
         $('.menu-bottom').addClass('bottom')
         ticker.addClass('animated')
     }
@@ -104,7 +145,7 @@ let animations = [
 ]
 
 // If sticky is not supported we have to make these animations ourselves
-if ($('.svg-wrap').css('position').toString().indexOf('sticky') === -1) {
+if (!stickySupport) {
     animations = animations.concat([
         new Section({
             tween: TweenMax.set('#no-caps', { position: 'fixed' }),
@@ -149,9 +190,7 @@ if ($('.svg-wrap').css('position').toString().indexOf('sticky') === -1) {
 // eslint-disable-next-line no-unused-vars
 const animationQueue = new Queue(animations, wHeight)
 
-const loadingTimeline = new TimelineMax({ onComplete: () => {
-    loadedTimeline.play()
-} }).repeat(-1)
+const loadingTimeline = new TimelineMax({ onComplete: () => loadedTimeline.play() }).repeat(-1)
 loadingTimeline.staggerTo('#mark path', 0.4, { fillOpacity: 1 }, 0.25)
 
 const loadedTimeline = new TimelineMax({ paused: true })
@@ -171,8 +210,6 @@ soundAnimation.to('#bar-3', 0.3, { height: '100%' }, 'up')
 soundAnimation.to('#bar-1', 0.4, { height: '20%' })
 soundAnimation.to('#bar-2', 0.5, { height: '20%' }, '=+0.1')
 soundAnimation.to('#bar-3', 0.3, { height: '20%' }, '=-0.2')
-
-const touch = 'ontouchstart' in window
 
 const $video = $('#intro-video')
 const $progress = $('#progress')
@@ -233,7 +270,7 @@ const introSound = new Howl({
     loop: true
 })
 
-if (!touch) {
+if (!mobile) {
     introSound.play()
     introSound.fade(0, 1, 2000)
 }
@@ -390,7 +427,7 @@ const endPress = function (ev) {
 
 $('#toggle-sound').on('click', toggleSound)
 
-if (!touch) {
+if (!mobile) {
     $('#intro').on('mousedown', startPress)
     $('#intro').on('mouseup', endPress)
 
