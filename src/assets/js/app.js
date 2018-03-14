@@ -64,7 +64,7 @@ const showVideo = () => {
 
 let animations = [
     new Section({
-        tween: new TimelineMax({ paused: true })
+        tween: new TimelineMax({ paused: true, ease: Linear.easeNone })
             .to('#enter-the-archives .type-band.left .type', 1, { x: '-50%' }, 'start')
             .to('#enter-the-archives .type-band.right .type', 1, { x: '50%' }, 'start'),
         trigger: 0.2,
@@ -81,7 +81,7 @@ let animations = [
         length: 0.6
     }),
     new Section({
-        tween: new TimelineMax({ paused: true })
+        tween: new TimelineMax({ paused: true, ease: Linear.easeNone })
             .to('#shop-now .type-band.left .type', 1, { x: '-50%' }, 'start')
             .to('#shop-now .type-band.right .type', 1, { x: '50%' }, 'start'),
         trigger: 20,
@@ -90,7 +90,7 @@ let animations = [
 ]
 
 // If sticky is not supported we have to make these animations ourselves
-if (!$('.svg-wrap').css('position').contains('sticky')) {
+if ($('.svg-wrap').css('position').toString().indexOf('sticky') === -1) {
     animations = animations.concat([
         new Section({
             tween: TweenMax.set('#no-caps', { position: 'fixed' }),
