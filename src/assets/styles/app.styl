@@ -9,7 +9,7 @@
 	opacity: 0
 	pointer-events: none
 	width: 5px
-
+		
 @keyframes marquee
 	0%
 		transform: translateX(0)
@@ -25,7 +25,7 @@ body, html
 	font-family: UniversBold
 	line-height: 1.35
 	user-select: none
-
+	
 	&.no-scroll
 		overflow: hidden
 		height: 100vh
@@ -50,21 +50,21 @@ section
 	z-index: 500
 	opacity: 0
 	transform: translateY(-100%)
-
+	
 	+below(700px)
 		width: 90%
 		left: 5%
-
+	
 	.logos
 		height: 10vh
 		display: flex
 		justify-content: center
 		align-items: flex-start
-
+		
 		img
 			height: 100%
 			padding-left: 10%
-
+	
 .menu-bottom
 	position: fixed
 	bottom: 1rem
@@ -113,44 +113,44 @@ section
 			svg
 				display: inline-block
 				width: 1.2em
-
+			
 			&.scroll
 				display: flex
 				flex-direction: column
 				justify-content: center
 				align-items: center
-
+				
 				svg
 					display: block
 					padding-bottom: 0.5em
 					width: 0.8rem
-
+					
 		#toggle-sound
 			#sound-icon
 				width: 2em
 				height: 0.75em
 				display: inline-block
 				padding-left: 0.4rem
-
+				
 				.wrap
 					display: flex
 					width: 100%
 					height: 100%
 					align-items: flex-end
-
+				
 					div
 						height: 80%
 						background: white
 						width: 100%
 						margin-right: 3px
-
+	
 	.right
 		width: 100%
 		display: none
 		text-align: right
 		justify-content: space-between
 		align-items: flex-end
-
+		
 		.music-credit
 			font-family: Helvetica
 			font-size: 0.6rem
@@ -158,14 +158,14 @@ section
 			width: 50%
 			text-align: center
 			padding: 0 0.5rem
-
+		
 		#watch-film
 			width: 100%
 			text-transform: uppercase
 			letter-spacing: 0.1em
 			font-family: Helvetica, sans-serif
 			font-size: 0.75rem
-
+			
 	.left.bottom
 		display: none
 
@@ -194,26 +194,26 @@ section
 			flex-direction: column
 			justify-content: center
 			align-items: center
-
+			
 			svg
 				display: block
 				padding-top: 0.5em
 				width: 0.8rem
 				transform: rotateZ(180deg)
-
+	
 	&.bottom
 		.left
 			display: none
-
+			
 		.left.bottom
 			display: flex
-
+			
 	+below(700px)
 		width: 90%
 		left: 5%
 		padding-bottom: 0
 		font-size: 0.8rem
-
+		
 		.left
 			width: auto
 
@@ -226,13 +226,13 @@ section
 		&.bottom
 			.left
 				display: flex
-
+				
 				#shop-link
 					display: none
 
 			.left.bottom
 				display: none
-
+			
 			.music-credit
 				display: block
 
@@ -253,20 +253,20 @@ section
 	background: black
 	z-index: 1000
 	overflow: hidden
-
+	
 	#close-video
 		position: absolute
 		right: 1rem
 		top: 1rem
 		font-size: 1.5rem
-
+	
 	.video-embed
 		position: absolute
 		left: 0
 		top: 50%
 		width: 100%
 		transform: translateY(-50%)
-
+		
 		.embed-container
 			position: relative
 			padding-bottom: 56.25%
@@ -289,7 +289,7 @@ section
 	position: fixed
 	z-index: 500
 	top: 40%
-
+	
 	+below(700px)
 		left: 5%
 		width: 90%
@@ -308,7 +308,7 @@ section
 		height: 100%
 		width: 100%
 		overflow: hidden
-
+		
 	#intro-video
 		position: absolute
 		top: 50%
@@ -319,7 +319,7 @@ section
 		width: auto
 		height: auto
 		opacity: 0
-
+	
 	#progress-wrapper
 		position: absolute
 		z-index: 100
@@ -332,7 +332,7 @@ section
 		align-items: center
 		flex-direction: column
 		padding-top: 10%
-
+		
 		#cta-wrapper
 			display: flex
 			flex-direction: column
@@ -344,7 +344,7 @@ section
 			svg
 				width: 100%
 				margin-bottom: 5%
-
+		
 			#progress-bar
 				height: 1.25rem
 				width: 85%
@@ -359,7 +359,7 @@ section
 					height: 100%
 					overflow: hidden
 					z-index: 1
-
+					
 					#progress
 						position: absolute
 						left: 0
@@ -367,7 +367,7 @@ section
 						width: 0%
 						height: 100%
 						background: white
-
+			
 			#cta
 				margin-top: 0.5rem
 				font-size: 1rem
@@ -378,16 +378,16 @@ section
 				display: flex
 				justify-content: space-between
 				user-select: none
-
+				
 			+below(800px)
 				width: 80%
-
+				
 				#cta, #progress-bar
 					width: 100%
-
+					
 				#cta
 					font-size: 0.8rem
-
+					
 				#progress-bar
 					height: 1rem
 					border: 2px solid white
@@ -405,7 +405,7 @@ section
 	width: 100%
 	left: 0
 
-	.type-band
+	.type-band		
 		margin: 0.25rem 0
 		overflow: hidden
 		position: relative
@@ -417,17 +417,17 @@ section
 			background-size: auto 100%
 			width: 300%
 			position: absolute
-
+			
 		&:nth-child(1)
 			.type
 				background-position: 20% 0
 				left: 0
-
+			
 		&:nth-child(2)
 			.type
 				background-position: 50% 0
 				left: -200%
-
+		
 		&:nth-child(3)
 			.type
 				background-position: 45% 0
@@ -449,7 +449,7 @@ section
 		transform: translateY(-50%)
 		padding: 4vw
 		font-family: Druk
-
+		
 		+below(700px)
 			width: 90%
 			left: 5%
@@ -461,47 +461,47 @@ section
 	.bg-type
 		height: 70%
 		top: 20%
-
+		
 		.type-band
 			height: 33%
-
+	
 			.type
 				background-image: url('/assets/images/enter-the-archives.svg')
-
+	
 #no-caps-wrap
 	background: grey
-
+	
 	.one
 		img
 			left: 25%
 			top: 8%
 			width: 17%
-
+			
 			+below(700px)
 				top: 4%
 				left: 30%
 				width: 55%
-
+	
 	.two
 		img
 			left: 2%
 			top: 0
 			width: 20%
-
+			
 			+below(700px)
 				left: 0
 				width: 60%
-
+			
 	.three
 		video
 			left: 1%
 			top: 40%
 			width: 20%
-
+			
 			+below(700px)
 				left: 10%
 				width: 60%
-
+			
 	.four
 		img
 			right: 5%
@@ -511,51 +511,51 @@ section
 			+below(700px)
 				top: 3%
 				width: 52%
-
+	
 	.five
 		video
 			right: 20%
 			top: 25%
 			width: 18%
-
+			
 			+below(700px)
 				right: 0%
 				top: 55%
 				width: 48%
-
+	
 	.six
 		img
 			left: 70%
 			top: 50%
 			width: 20%
-
+			
 			+below(700px)
 				right: 0%
 				top: 50%
 				width: 60%
-
+			
 	.seven
 		img
 			width: 25%
 			top: 27%
 			left: 40%
-
+			
 			+below(700px)
 				right: 45%
 				top: 10%
 				width: 30%
-
+			
 	.eight
 		img
 			width: 25%
 			top: 48%
 			left: 20%
-
+			
 			+below(700px)
 				width: 45%
 				top: 30%
 				left: 5%
-
+	
 	.image-wrap
 		width: 50%
 
@@ -574,38 +574,38 @@ section
 
 #no-trainers-wrap
 	height: 1000vh
-
+			
 	.one
 		img
 			left: 25%
 			top: 8%
 			width: 17%
-
+			
 			+below(700px)
 				top: 4%
 				left: 30%
 				width: 55%
-
+	
 	.two
 		img
 			left: 2%
 			top: 0
 			width: 20%
-
+			
 			+below(700px)
 				left: 0
 				width: 60%
-
+			
 	.three
 		video
 			left: 1%
 			top: 40%
 			width: 20%
-
+			
 			+below(700px)
 				left: 10%
 				width: 60%
-
+			
 	.four
 		img
 			right: 5%
@@ -615,63 +615,63 @@ section
 			+below(700px)
 				top: 3%
 				width: 52%
-
+	
 	.five
 		video
 			right: 20%
 			top: 25%
 			width: 18%
-
+			
 			+below(700px)
 				right: 0%
 				top: 55%
 				width: 48%
-
+	
 	.six
 		img
 			left: 40%
 			top: 20%
 			width: 20%
-
+			
 			+below(700px)
 				right: 0%
 				top: 50%
 				width: 60%
-
+			
 	.seven
 		img
 			width: 25%
 			top: 42%
 			left: 70%
-
+			
 			+below(700px)
 				right: 45%
 				top: 10%
 				width: 30%
-
+			
 	.eight
 		img
 			width: 25%
 			top: 40%
 			left: 25%
-
+			
 			+below(700px)
 				width: 45%
 				top: 30%
 				left: 5%
-
+	
 	.nine
 		video
 			width: 25%
 			top: 50%
 			right: 30%
-
+			
 			+below(700px)
 				width: 65%
-
+	
 	.image-wrap
 		width: 60%
-
+		
 		+below(700px)
 			width: 90%
 
@@ -686,21 +686,21 @@ section
 	position: relative
 	height: 900vh
 	overflow: hidden
-
+	
 	.svg-wrap
 		z-index: 100
 		top: 0
 		left: 0
 		display: flex
-
+		
 		.image-wrap
 			margin: auto
 			position: relative
-
+	
 			svg
 				max-width: 100%
 				margin: auto
-
+				
 			.strike
 				height: 2vmax
 				position: absolute
@@ -716,7 +716,7 @@ section
 		top: 0
 		left: 0
 		overflow: hidden
-
+		
 		img, video
 			width: 30%
 			position: absolute
@@ -728,11 +728,11 @@ section
 
 		.svg-wrap
 			position: sticky
-
+		
 		.image-stack
 			transform: translateY(0%)
 			position: sticky
-
+	
 	#no-trainers-wrap
 		height: auto
 
@@ -740,10 +740,10 @@ section
 	.bg-type
 		height: 50%
 		top: 20%
-
+		
 		.type-band
 			height: 50%
-
+	
 			.type
 				background-image: url('/assets/images/shop-now-combo.svg')
 
@@ -764,7 +764,8 @@ section
 			font-size: 10vh
 			text-transform: uppercase
 			letter-spacing: 0.03em
-
+			
 		&.animated
 			.ticker-text
 				animation: marquee 30s linear infinite
+		
