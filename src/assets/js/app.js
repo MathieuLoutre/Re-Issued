@@ -238,18 +238,18 @@ const steps = [
     {
         name: 'backwards-speed',
         start: 8.01,
-        end: 9.0,
+        end: 10.00,
         reverse: true
     },
     {
         name: 'speed',
-        start: 9.01,
-        end: 13.00
+        start: 10.02,
+        end: 14.01
     },
     {
         name: 'sequence',
-        start: 13.01,
-        end: 59.00
+        start: 14.03,
+        end: 77.00
     }
 ]
 
@@ -258,8 +258,8 @@ let elapsed = 0
 let endElapsed = 0
 let endProgress = 0
 
-const maxTime = 5000
-const decreaseTime = 550
+const maxTime = 4000
+const decreaseTime = 1999
 let startTime = 0
 let endTime = 0
 let down = false
