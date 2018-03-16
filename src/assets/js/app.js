@@ -20,6 +20,8 @@ let quiet = false
 
 let shopNowTheshold = () => wHeight * 13
 
+let strikethroughStart = 7.8
+
 if (!mobile || !stickySupport) {
     $('#no-caps-wrap').append(`
         <section class="image-stack six">
@@ -53,6 +55,7 @@ if (!mobile || !stickySupport) {
         </section>
     `)
 
+    strikethroughStart = 10.8
     shopNowTheshold = () => wHeight * 20
 }
 
@@ -132,7 +135,7 @@ let animations = [
     }),
     new Section({
         tween: TweenMax.from('#no-trainers .strike', 1, { width: '0%' }),
-        trigger: 10.8,
+        trigger: strikethroughStart,
         length: 0.6
     }),
     new Section({
