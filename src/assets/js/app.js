@@ -258,8 +258,8 @@ let elapsed = 0
 let endElapsed = 0
 let endProgress = 0
 
-const maxTime = 4000
-const decreaseTime = 1999
+const maxTime = 3000
+const decreaseTime = 1000
 let startTime = 0
 let endTime = 0
 let down = false
