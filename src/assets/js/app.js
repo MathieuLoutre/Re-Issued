@@ -453,10 +453,14 @@ $window.on('scroll', throttle(setScrollClasses, 50))
 
 $('#watch-film').on('click', (ev) => {
     TweenMax.to('#video-overlay', 0.6, { y: '0%' })
+    Howler.volume(0)
 })
 
 $('#close-video').on('click', (ev) => {
     TweenMax.to('#video-overlay', 0.6, { y: '100%' })
+    if (!muted) {
+        Howler.volume(quiet ? 0.5 : 1)
+    }
 })
 
 $('.top').on('click', (ev) => {
