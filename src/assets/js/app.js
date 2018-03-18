@@ -243,7 +243,7 @@ const steps = [
     },
     {
         name: 'speed',
-        start: 5.02,
+        start: 5.03,
         end: 9.00
     },
     {
@@ -258,7 +258,7 @@ let elapsed = 0
 let endElapsed = 0
 let endProgress = 0
 
-const maxTime = 3000
+const maxTime = 4000
 const decreaseTime = 1000
 let startTime = 0
 let endTime = 0
