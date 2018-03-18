@@ -254,7 +254,7 @@ const steps = [
     {
         name: 'sequence',
         start: 9.02,
-        end: 113.00
+        end: 120.00
     }
 ]
 
@@ -308,6 +308,7 @@ $video.on('ended', () => {
     $progress.css('width', '0')
 
     mainSound.pause()
+    introSound.seek(0)
     introSound.play()
 })
 
