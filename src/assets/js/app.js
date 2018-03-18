@@ -21,6 +21,7 @@ let quiet = false
 let shopNowTheshold = () => wHeight * 13
 
 let strikethroughStart = 7.8
+let shopNowStart = 13
 
 if (!mobile || !stickySupport) {
     $('#no-caps-wrap').append(`
@@ -56,6 +57,7 @@ if (!mobile || !stickySupport) {
     `)
 
     strikethroughStart = 10.8
+    shopNowStart = 20
     shopNowTheshold = () => wHeight * 20
 }
 
@@ -142,7 +144,7 @@ let animations = [
         tween: new TimelineMax({ paused: true, ease: Linear.easeNone })
             .to('#shop-now .type-band.left .type', 1, { x: '-50%' }, 'start')
             .to('#shop-now .type-band.right .type', 1, { x: '50%' }, 'start'),
-        trigger: 20,
+        trigger: shopNowStart,
         length: 1
     })
 ]
