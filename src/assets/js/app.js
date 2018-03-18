@@ -51,7 +51,7 @@ if (!mobile || !stickySupport) {
 
         <section class="image-stack nine">
             <video autoplay muted loop playsinline webkit-playsinline>
-                <source src="./assets/images/loop5.mp4">
+                <source src="./assets/images/loop3.mp4">
             </video>
         </section>
     `)
