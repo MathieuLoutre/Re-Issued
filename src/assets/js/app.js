@@ -308,8 +308,11 @@ $video.on('ended', () => {
     $progress.css('width', '0')
 
     mainSound.pause()
-    introSound.seek(0)
-    introSound.play()
+
+    if (!mobile) {
+        introSound.seek(0)
+        introSound.play()
+    }
 })
 
 setInterval(function () {
@@ -423,9 +426,11 @@ const endPress = function (ev) {
             reverseSound.play()
         }
 
-        introSound.pause()
-        introSound.seek(0)
-        introSound.play()
+        if (!mobile) {
+            introSound.pause()
+            introSound.seek(0)
+            introSound.play()
+        }
 
         video.currentTime = steps[step].end - (steps[step].end - steps[step].start) * progress / 100
     }
