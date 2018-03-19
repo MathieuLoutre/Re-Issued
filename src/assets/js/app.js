@@ -463,12 +463,22 @@ setScrollClasses()
 $window.on('scroll', throttle(setScrollClasses, 50))
 
 $('#watch-film').on('click', (ev) => {
+    if (!$('#vimeo-video').attr('src')) {
+        $('#vimeo-video').attr('src', 'https://player.vimeo.com/video/260456716?color=ffffff&title=0&byline=0&portrait=0')
+    }
+
     TweenMax.to('#video-overlay', 0.6, { y: '0%' })
     Howler.volume(0)
 })
 
 $('#close-video').on('click', (ev) => {
-    TweenMax.to('#video-overlay', 0.6, { y: '100%' })
+    TweenMax.to('#video-overlay', 0.6, {
+        y: '100%',
+        onComplete: () => {
+            $('#vimeo-video').attr('src', '')
+        }
+    })
+
     if (!muted) {
         Howler.volume(quiet ? 0.5 : 1)
     }
