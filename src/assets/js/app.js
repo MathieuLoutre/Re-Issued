@@ -8,8 +8,6 @@ import debounce from 'lodash/debounce'
 import throttle from 'lodash/throttle'
 require('babel-polyfill')
 
-Howler.mobileAutoEnable = false
-
 const stickySupport = $('.svg-wrap').css('position').toString().indexOf('sticky') > -1
 const mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
 
@@ -270,29 +268,39 @@ let endTime = 0
 let down = false
 let reached = false
 
-const introSound = new Howl({
-    src: ['./assets/images/loop.mp3'],
-    loop: true
+const sounds = new Howl({
+    src: ['./assets/images/sprite.mp3', './assets/images/sprite.ac3', './assets/images/sprite.m4a'],
+    sprite: {
+        load: [
+            0,
+            4075.1020408163267,
+            true
+        ],
+        loop: [
+            6000,
+            8071.8367346938785,
+            true
+        ],
+        main: [
+            16000,
+            123062.85714285713,
+            true
+        ],
+        reverse: [
+            141000,
+            1071.020408163264,
+            false
+        ]
+    }
 })
+
+let loopSound = null
+let loadingSound = null
 
 if (!mobile) {
-    introSound.play()
-    introSound.fade(0, 1, 2000)
+    loopSound = sounds.play('loop')
+    sounds.fade(0, 1, 2000, loopSound)
 }
-
-const loadingSound = new Howl({
-    src: ['./assets/images/load.mp3'],
-    loop: true
-})
-
-const reverseSound = new Howl({
-    src: ['./assets/images/reverse.mp3']
-})
-
-const mainSound = new Howl({
-    src: ['./assets/images/main.mp3'],
-    loop: true
-})
 
 $video.on('ended', () => {
     step = 0
@@ -307,11 +315,10 @@ $video.on('ended', () => {
 
     $progress.css('width', '0')
 
-    mainSound.pause()
+    sounds.stop()
 
     if (!mobile) {
-        introSound.seek(0)
-        introSound.play()
+        loopSound = sounds.play('loop')
     }
 })
 
@@ -337,10 +344,9 @@ const videoStateManager = function () {
 
         _update(progress)
 
-        if (elapsed > 500 && !loadingSound.playing()) {
-            introSound.pause()
-            loadingSound.seek(0)
-            loadingSound.play()
+        if (elapsed > 500 && loadingSound === null) {
+            sounds.stop()
+            loadingSound = sounds.play('load')
         }
 
         if (progress >= 100) {
@@ -351,10 +357,9 @@ const videoStateManager = function () {
 
             TweenMax.to('#progress-wrapper', 0.5, { opacity: 0 })
 
-            loadingSound.pause()
-            loadingSound.seek(0)
-            mainSound.seek(0)
-            mainSound.play()
+            loadingSound = null
+            sounds.stop()
+            sounds.play('main')
         }
         else {
             requestAnimationFrame(videoStateManager)
@@ -419,17 +424,15 @@ const endPress = function (ev) {
     if (!reached) {
         step = 1
 
-        loadingSound.pause()
+        sounds.stop()
+        loadingSound = null
 
         if (endTime - startTime > 500) {
-            reverseSound.seek(0)
-            reverseSound.play()
+            sounds.play('reverse')
         }
 
         if (!mobile) {
-            introSound.pause()
-            introSound.seek(0)
-            introSound.play()
+            loopSound = sounds.play('loop')
         }
 
         video.currentTime = steps[step].end - (steps[step].end - steps[step].start) * progress / 100
